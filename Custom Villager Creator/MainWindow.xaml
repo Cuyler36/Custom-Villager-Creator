@@ -3,10 +3,249 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Custom_Villager_Creator"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Animal Forest e+ Villager Creator" Height="680" Width="934">
     <Grid>
-        
+        <DockPanel Height="20" VerticalAlignment="Top">
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="_File">
+                    <MenuItem Header="_New" Click="New_Click"/>
+                    <MenuItem Header="_Open" Click="Open_Click"/>
+                    <MenuItem Header="_Save" Click="Save_Click"/>
+                    <MenuItem Header="Save _As" Click="SaveAs_Click"/>
+                </MenuItem>
+                <MenuItem Header="_Texture">
+                    <MenuItem x:Name="Import" Header="_Import Over Selected" IsEnabled="False" Click="ImportOverSelected_Click"/>
+                    <MenuItem x:Name="Dump" Header="_Dump Selected" IsEnabled="False" Click="DumpSelected_Click"/>
+                    <MenuItem x:Name="DumpAll" Header="Dump _All" IsEnabled="False" Click="DumpAll_Click"/>
+                    <MenuItem x:Name="DumPaletteFile" Header="Dump _Palettes in File" IsEnabled="True" Click="DumpPaletteFile_Click"/>
+                </MenuItem>
+            </Menu>
+        </DockPanel>
+        <TabControl x:Name="EditorTabControl" Margin="0, 20, 0, 0">
+            <TabItem Header="Texture Editor">
+                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <Grid x:Name="ImageGrid" Width="512" Height="512" Margin="0,39,380,20" HorizontalAlignment="Center">
+                        <Label x:Name="PositionLabel" HorizontalContentAlignment="Right" VerticalContentAlignment="Bottom" Content="X: 0 Y: 0" Margin="0,-28,0,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="Auto"/>
+                        <Label x:Name="SelectedLabel" Content="" Margin="0,-28,0,0" HorizontalContentAlignment="Center" Height="28" VerticalAlignment="Top" HorizontalAlignment="Center" Width="Auto"/>
+                        <Image x:Name="SelectedImage" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
+                        <CheckBox x:Name="GridEnabledCheckBox" Content="Grid Enabled" Margin ="0,-22,0,0" IsChecked="True" Checked="GridEnabledCheckBoxCheckChanged" Unchecked="GridEnabledCheckBoxCheckChanged"/>
+                        <Canvas x:Name="ImageGridCanvas" MouseLeave="CanvasGrid_MouseUp" MouseDown="CanvasGrid_MouseDown" MouseUp="CanvasGrid_MouseUp" MouseMove="CanvasGrid_MouseMove" HorizontalAlignment="Left" Width="512">
+                            <Canvas.Background>
+                                <DrawingBrush x:Name="GridBrush" TileMode="Tile" Viewport="0,0,16,16"
+                                             ViewportUnits="Absolute">
+                                    <DrawingBrush.Drawing>
+                                        <GeometryDrawing>
+                                            <GeometryDrawing.Geometry>
+                                                <RectangleGeometry Rect="0,0,8,8"/>
+                                            </GeometryDrawing.Geometry>
+                                            <GeometryDrawing.Pen>
+                                                <Pen Brush="Gray" Thickness="0.5"/>
+                                            </GeometryDrawing.Pen>
+                                        </GeometryDrawing>
+                                    </DrawingBrush.Drawing>
+                                </DrawingBrush>
+                            </Canvas.Background>
+                        </Canvas>
+                    </Grid>
+                    <TreeView x:Name="EntryTreeView" HorizontalAlignment="Right" Width="185" Margin="0,20,10,0"/>
+                    <DockPanel LastChildFill="False"  Width="512" Margin="0,0,380,5" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Center">
+                        <DockPanel.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="Margin" Value="15,0,0,0"/>
+                            </Style>
+                        </DockPanel.Resources>
+                        <Border BorderBrush="Black" Height="16" Width="16"  BorderThickness="1">
+                            <Canvas x:Name="Palette0" Height="14" Width="14" Background="White" MouseLeftButtonDown="CanvasMouseButtonDown"/>
+                        </Border>
+                        <Border BorderBrush="Black"  BorderThickness="1"  Width="16" Height="16">
+                            <Canvas x:Name="Palette1" Height="14" Width="14" Background="White" MouseLeftButtonDown="CanvasMouseButtonDown"/>
+                        </Border>
+                        <Border BorderBrush="Black" Height="16" Width="16"  BorderThickness="1">
+                            <Canvas x:Name="Palette2" Height="14" Width="14" Background="White" MouseLeftButtonDown="CanvasMouseButtonDown"/>
+                        </Border>
+                        <Border BorderBrush="Black" Height="16" Width="16"  BorderThickness="1">
+                            <Canvas x:Name="Palette3" Height="14" Width="14" Background="White" MouseLeftButtonDown="CanvasMouseButtonDown"/>
+                        </Border>
+                        <Border BorderBrush="Black" Height="16" Width="16"  BorderThickness="1">
+                            <Canvas x:Name="Palette4" Height="14" Width="14" Background="White" MouseLeftButtonDown="CanvasMouseButtonDown"/>
+                        </Border>
+                        <Border BorderBrush="Black" Height="16" Width="16"  BorderThickness="1">
+                            <Canvas x:Name="Palette5" Height="14" Width="14" Background="White" MouseLeftButtonDown="CanvasMouseButtonDown"/>
+                        </Border>
+                        <Border BorderBrush="Black" Height="16" Width="16"  BorderThickness="1">
+                            <Canvas x:Name="Palette6" Height="14" Width="14" Background="White" MouseLeftButtonDown="CanvasMouseButtonDown"/>
+                        </Border>
+                        <Border BorderBrush="Black" Height="16" Width="16"  BorderThickness="1">
+                            <Canvas x:Name="Palette7" Height="14" Width="14" Background="White" MouseLeftButtonDown="CanvasMouseButtonDown"/>
+                        </Border>
+                        <Border BorderBrush="Black" Height="16" Width="16"  BorderThickness="1">
+                            <Canvas x:Name="Palette8" Height="14" Width="14" Background="White" MouseLeftButtonDown="CanvasMouseButtonDown"/>
+                        </Border>
+                        <Border BorderBrush="Black" Height="16" Width="16"  BorderThickness="1">
+                            <Canvas x:Name="Palette9" Height="14" Width="14" Background="White" MouseLeftButtonDown="CanvasMouseButtonDown"/>
+                        </Border>
+                        <Border BorderBrush="Black" Height="16" Width="16"  BorderThickness="1">
+                            <Canvas x:Name="Palette10" Height="14" Width="14" Background="White" MouseLeftButtonDown="CanvasMouseButtonDown"/>
+                        </Border>
+                        <Border BorderBrush="Black" Height="16" Width="16"  BorderThickness="1">
+                            <Canvas x:Name="Palette11" Height="14" Width="14" Background="White" MouseLeftButtonDown="CanvasMouseButtonDown"/>
+                        </Border>
+                        <Border BorderBrush="Black" Height="16" Width="16"  BorderThickness="1">
+                            <Canvas x:Name="Palette12" Height="14" Width="14" Background="White" MouseLeftButtonDown="CanvasMouseButtonDown"/>
+                        </Border>
+                        <Border BorderBrush="Black" Height="16" Width="16"  BorderThickness="1">
+                            <Canvas x:Name="Palette13" Height="14" Width="14" Background="White" MouseLeftButtonDown="CanvasMouseButtonDown"/>
+                        </Border>
+                        <Border BorderBrush="Black" Height="16" Width="16"  BorderThickness="1">
+                            <Canvas x:Name="Palette14" Height="14" Width="14" Background="White" MouseLeftButtonDown="CanvasMouseButtonDown"/>
+                        </Border>
+                        <Border BorderBrush="Black" Height="16" Width="16"  BorderThickness="1">
+                            <Canvas x:Name="Palette15" Height="14" Width="14" Background="White" MouseLeftButtonDown="CanvasMouseButtonDown"/>
+                        </Border>
+                    </DockPanel>
+                    <Label x:Name="Label" Content="Selected Color" HorizontalContentAlignment="Center" HorizontalAlignment="Right" Margin="0,0,202,221" VerticalAlignment="Bottom" Width="153"/>
+                    <Slider x:Name="RedSlider" IsEnabled="False" HorizontalAlignment="Right" Margin="0,0,250,194" VerticalAlignment="Bottom" Width="51" Maximum="255" ValueChanged="Slider_ValueChanged"/>
+                    <Slider x:Name="GreenSlider" IsEnabled="False" HorizontalAlignment="Right" Margin="0,0,250,170" VerticalAlignment="Bottom" Height="20" Width="51" Maximum="255" ValueChanged="Slider_ValueChanged"/>
+                    <Slider x:Name="BlueSlider" IsEnabled="False" HorizontalAlignment="Right" Margin="0,0,250,147" VerticalAlignment="Bottom" Width="51" Maximum="255" ValueChanged="Slider_ValueChanged"/>
+                    <TextBox x:Name="RedBox" IsEnabled="False" HorizontalAlignment="Right" Height="18" Margin="0,0,215,194" TextWrapping="Wrap" Text="0" VerticalAlignment="Bottom" MaxLength="3" Width="30" TextChanged="SliderBox_TextChanged"/>
+                    <TextBox x:Name="GreenBox" IsEnabled="False" HorizontalAlignment="Right" Height="18" Margin="0,0,215,171" TextWrapping="Wrap" Text="0" VerticalAlignment="Bottom" MaxLength="3" Width="30" TextChanged="SliderBox_TextChanged"/>
+                    <TextBox x:Name="BlueBox" IsEnabled="False" HorizontalAlignment="Right" Height="18" Margin="0,0,215,148" TextWrapping="Wrap" Text="0" VerticalAlignment="Bottom" MaxLength="3" Width="30" TextChanged="SliderBox_TextChanged"/>
+                    <Label x:Name="Label1" Content="Red:" Margin="0,0,308,190" HorizontalContentAlignment="Right" HorizontalAlignment="Right" Width="33" Height="26" VerticalAlignment="Bottom"/>
+                    <Label x:Name="Label1Copy" Content="Green:" Margin="0,0,308,169" HorizontalContentAlignment="Right" HorizontalAlignment="Right" Height="24" VerticalAlignment="Bottom"/>
+                    <Label x:Name="Label1Copy1" Content="Blue:" Margin="0,0,306,146" HorizontalContentAlignment="Right" Height="24" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="35"/>
+                    <Label x:Name="Label2" Content="RGB5A3:" HorizontalAlignment="Right" Margin="0,0,306,94" VerticalAlignment="Bottom"/>
+                    <TextBox x:Name="RgbBox" IsEnabled="False" HorizontalAlignment="Right" Height="18" Margin="0,0,259,98" TextWrapping="Wrap" Text="FFFF" VerticalAlignment="Bottom" Width="40" MaxLength="4" TextChanged="RgbBox_PreviewTextInput"/>
+                    <Border BorderBrush="Black" HorizontalAlignment="Right" Height="32" Margin="0,0,266,36" Width="32" VerticalAlignment="Bottom" BorderThickness="1">
+                        <Canvas x:Name="ColorPreview" HorizontalAlignment="Left" Height="30" Width="30"/>
+                    </Border>
+                    <Button x:Name="SetColorButton" IsEnabled="False" Content="Set Color" HorizontalAlignment="Right" Margin="0,0,244,11" Width="75" Click="SetColorButton_Click" Height="20" VerticalAlignment="Bottom"/>
+                    <Label x:Name="Label1Copy2" Content="Transparency:" Margin="0,0,306,120" HorizontalContentAlignment="Right" Height="29" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="85"/>
+                    <Slider x:Name="TransparencySlider" IsEnabled="False" HorizontalAlignment="Right" Margin="0,0,250,124" VerticalAlignment="Bottom" Width="51" Maximum="255" ValueChanged="Slider_ValueChanged"/>
+                    <TextBox x:Name="TransparencyBox" IsEnabled="False" HorizontalAlignment="Right" Height="18" Margin="0,0,215,125" TextWrapping="Wrap" Text="0" VerticalAlignment="Bottom" MaxLength="3" Width="30" TextChanged="SliderBox_TextChanged"/>
+                    <Label x:Name="Label2Copy" Content="ARGB8:" HorizontalAlignment="Right" Margin="0,0,306,68" VerticalAlignment="Bottom"/>
+                    <TextBox x:Name="Rgba8Box" IsEnabled="False" HorizontalAlignment="Right" Height="18" Margin="0,0,232,72" TextWrapping="Wrap" Text="FFFFFFFF" VerticalAlignment="Bottom" Width="69" MaxLength="8" TextChanged="Rgba8Box_PreviewTextInput"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Villager Setttings">
+                <Grid>
+                    <StackPanel Orientation="Vertical">
+                        <StackPanel Height="30" VerticalAlignment="Top" Orientation="Horizontal">
+                            <Label Content="Name:" VerticalAlignment="Center"/>
+                            <TextBox x:Name="NameTextBox" TextWrapping="Wrap" MaxLength="6" VerticalAlignment="Center" Width="80"/>
+                        </StackPanel>
+                        <StackPanel Height="30" VerticalAlignment="Top" Orientation="Horizontal">
+                            <Label Content="Catchphrase:" VerticalAlignment="Center"/>
+                            <TextBox x:Name="CatchphraseTextBox" TextWrapping="Wrap" MaxLength="4" VerticalAlignment="Center" Width="60"/>
+                        </StackPanel>
+                        <StackPanel Height="30" VerticalAlignment="Top" Orientation="Horizontal">
+                            <Label Content="Model:" VerticalAlignment="Center"/>
+                            <ComboBox x:Name="ModelComboBox" SelectedIndex="0" Width="80" VerticalAlignment="Center">
+                                <ComboBoxItem Content="Cat"/>
+                                <ComboBoxItem Content="Elephant"/>
+                                <ComboBoxItem Content="Sheep"/>
+                                <ComboBoxItem Content="Bear"/>
+                                <ComboBoxItem Content="Dog"/>
+                                <ComboBoxItem Content="Squirrel"/>
+                                <ComboBoxItem Content="Rabbit"/>
+                                <ComboBoxItem Content="Duck"/>
+                                <ComboBoxItem Content="Hippo"/>
+                                <ComboBoxItem Content="Wolf"/>
+                                <ComboBoxItem Content="Mouse"/>
+                                <ComboBoxItem Content="Pig"/>
+                                <ComboBoxItem Content="Chicken"/>
+                                <ComboBoxItem Content="Bull"/>
+                                <ComboBoxItem Content="Cow"/>
+                                <ComboBoxItem Content="Bird"/>
+                                <ComboBoxItem Content="Frog"/>
+                                <ComboBoxItem Content="Alligator"/>
+                                <ComboBoxItem Content="Goat"/>
+                                <ComboBoxItem Content="Tiger"/>
+                                <ComboBoxItem Content="Anteater"/>
+                                <ComboBoxItem Content="Koala"/>
+                                <ComboBoxItem Content="Horse"/>
+                                <ComboBoxItem Content="Octopus"/>
+                                <ComboBoxItem Content="Lion"/>
+                                <ComboBoxItem Content="Cub"/>
+                                <ComboBoxItem Content="Rhino"/>
+                                <ComboBoxItem Content="Gorilla"/>
+                                <ComboBoxItem Content="Ostrich"/>
+                                <ComboBoxItem Content="Kangaroo"/>
+                                <ComboBoxItem Content="Eagle"/>
+                                <ComboBoxItem Content="Penguin"/>
+                            </ComboBox>
+                        </StackPanel>
+                        <StackPanel Height="30" VerticalAlignment="Top" Orientation="Horizontal">
+                            <Label Content="Personality:" VerticalAlignment="Center"/>
+                            <ComboBox x:Name="PersonalityComboBox" SelectedIndex="0" Width="80" VerticalAlignment="Center">
+                                <ComboBoxItem Content="Normal♀"/>
+                                <ComboBoxItem Content="Peppy♀"/>
+                                <ComboBoxItem Content="Lazy♂"/>
+                                <ComboBoxItem Content="Jock♂"/>
+                                <ComboBoxItem Content="Cranky♂"/>
+                                <ComboBoxItem Content="Snooty♀"/>
+                            </ComboBox>
+                        </StackPanel>
+                        <StackPanel Height="30" VerticalAlignment="Top" Orientation="Horizontal">
+                            <Label Content="House Type:" VerticalAlignment="Center"/>
+                            <ComboBox x:Name="HouseTypeComboBox" SelectedIndex="0" Width="90" VerticalAlignment="Center">
+                                <ComboBoxItem Content="Barnhouse"/>
+                                <ComboBoxItem Content="Cabin"/>
+                                <ComboBoxItem Content="Cabana"/>
+                                <ComboBoxItem Content="Cottage"/>
+                                <ComboBoxItem Content="Brick"/>
+                            </ComboBox>
+                        </StackPanel>
+                        <StackPanel Height="30" VerticalAlignment="Top" Orientation="Horizontal">
+                            <Label Content="House Colors:" VerticalAlignment="Center"/>
+                            <ComboBox x:Name="HousePaletteComboBox" SelectedIndex="0" Width="80" VerticalAlignment="Center">
+                                <ComboBoxItem Content="Palette 1"/>
+                                <ComboBoxItem Content="Palette 2"/>
+                                <ComboBoxItem Content="Palette 3"/>
+                                <ComboBoxItem Content="Palette 4"/>
+                                <ComboBoxItem Content="Palette 5"/>
+                            </ComboBox>
+                        </StackPanel>
+                        <StackPanel Height="30" VerticalAlignment="Top" Orientation="Horizontal">
+                            <Label Content="Islander:" VerticalAlignment="Center"/>
+                            <CheckBox x:Name="IslanderCheckBox" Content="" HorizontalAlignment="Left" Height="16" Width="Auto" Margin="0,4,0,0"/>
+                        </StackPanel>
+                        <StackPanel Height="30" VerticalAlignment="Top" Orientation="Horizontal">
+                            <Label Content="Shirt:" VerticalAlignment="Center"/>
+                            <ComboBox x:Name="ShirtComboBox" SelectedIndex="0" Width="120" VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <StackPanel Height="30" VerticalAlignment="Top" Orientation="Horizontal">
+                            <Label Content="Song:" VerticalAlignment="Center"/>
+                            <ComboBox x:Name="MinidiskComboBox" SelectedIndex="0" Width="120" VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <StackPanel Height="30" VerticalAlignment="Top" Orientation="Horizontal">
+                            <Label Content="Carpet:" VerticalAlignment="Center"/>
+                            <ComboBox x:Name="CarpetComboBox" SelectedIndex="0" Width="120" VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <StackPanel Height="30" VerticalAlignment="Top" Orientation="Horizontal">
+                            <Label Content="Wallpaper:" VerticalAlignment="Center"/>
+                            <ComboBox x:Name="WallpaperComboBox" SelectedIndex="0" Width="120" VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <StackPanel Height="30" VerticalAlignment="Top" Orientation="Horizontal">
+                            <Label Content="Umbrella:" VerticalAlignment="Center"/>
+                            <ComboBox x:Name="UmbrellaComboBox" SelectedIndex="0" Width="120" VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <StackPanel Height="30" VerticalAlignment="Top" Orientation="Horizontal">
+                            <Label Content="Zodiac Sign:" VerticalAlignment="Center"/>
+                            <ComboBox x:Name="ZodiacSignComboBox" SelectedIndex="0" Width="100" VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <StackPanel Height="30" VerticalAlignment="Top" Orientation="Horizontal">
+                            <Label Content="Favorite Clothing Category:" VerticalAlignment="Center"/>
+                            <ComboBox x:Name="FavoriteClothComboBox" SelectedIndex="0" Width="100" VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <StackPanel Height="30" VerticalAlignment="Top" Orientation="Horizontal">
+                            <Label Content="Hated Clothing Category:" VerticalAlignment="Center"/>
+                            <ComboBox x:Name="HatedClothComboBox" SelectedIndex="0" Width="100" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <Image x:Name="HousePreviewImage" HorizontalAlignment="Left" VerticalAlignment="Top" Height="32" Width="32" Margin="180, 134, 0, 0"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>
