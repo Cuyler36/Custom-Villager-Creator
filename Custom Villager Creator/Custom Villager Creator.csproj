@@ -70,7 +70,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="CharacterSet.cs" />
-    <Compile Include="ColorExtensions.cs" />
     <Compile Include="DLCVillager.cs" />
     <Compile Include="TextureEntry.cs" />
     <Compile Include="Utility.cs" />
