@@ -747,38 +747,28 @@ namespace Custom_Villager_Creator
             // Connect Events
             NameTextBox.TextChanged += delegate
             {
-                var villagerName = "";
                 unsafe
                 {
-                    if (_villager != null)
+                    if (_villager == null) return;
+                    fixed (byte* name = _villager.Header.Name)
                     {
-                        fixed (byte* name = _villager.Header.Name)
-                        {
-                            Utility.DnMStringToBytePtr(name, NameTextBox.Text, 6);
-                            villagerName = Utility.BytePtrToDnMString(name, 6);
-                        }
-                        _changesMade = true;
+                        Utility.DnMStringToBytePtr(name, NameTextBox.Text, 6);
                     }
+                    _changesMade = true;
                 }
-                Console.WriteLine("Villager name changed to: " + villagerName);
             };
 
             CatchphraseTextBox.TextChanged += delegate
             {
-                var villagerCatchphrase = "";
                 unsafe
                 {
-                    if (_villager != null)
+                    if (_villager == null) return;
+                    fixed (byte* catchphrase = _villager.Header.Catchphrase)
                     {
-                        fixed (byte* catchphrase = _villager.Header.Catchphrase)
-                        {
-                            Utility.DnMStringToBytePtr(catchphrase, CatchphraseTextBox.Text, 4);
-                            villagerCatchphrase = Utility.BytePtrToDnMString(catchphrase, 4);
-                        }
-                        _changesMade = true;
+                        Utility.DnMStringToBytePtr(catchphrase, CatchphraseTextBox.Text, 4);
                     }
+                    _changesMade = true;
                 }
-                Console.WriteLine("Villager catchphrase changed to: " + villagerCatchphrase);
             };
 
             ModelComboBox.SelectionChanged += delegate
@@ -786,7 +776,6 @@ namespace Custom_Villager_Creator
                 if (_villager == null) return;
                 _villager.Header.Model = (ModelType)ModelComboBox.SelectedIndex;
                 SetTextureEditorInfo();
-                Console.WriteLine("Villager model type changed to: " + _villager.Header.Model);
                 _changesMade = true;
             };
 
@@ -868,7 +857,7 @@ namespace Custom_Villager_Creator
             };
         }
 
-        private MessageBoxResult AskSaveCurrentFile()
+        private static MessageBoxResult AskSaveCurrentFile()
             => MessageBox.Show(
                 "The file currently open has had changes made to it.\nWould you like to save it before continuing?",
                 "Save File?", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
@@ -1566,16 +1555,11 @@ namespace Custom_Villager_Creator
             if (_yaz0Compressed)
             {
                 _data = Yaz0.Decompress(_data);
-                Console.WriteLine("Decompressed Yaz0 data! Decompressed size: " + _data.Length.ToString("X"));
             }
 
             using (var fStream = new MemoryStream(_data))
             {
                 _villager = new DLCVillager(fStream);
-                Console.WriteLine("Villager Model Type: " + _villager.Header.Model);
-                Console.WriteLine("Villager House Type: " + _villager.Header.HouseStyle);
-                Console.WriteLine("Villager House Palette: " + ((byte)(_villager.Header.HousePalette)).ToString("X2"));
-                Console.WriteLine("Villager constellation: " + _villager.Header.Constellation.ToString("X2"));
                 SetVillagerInfo(_villager);
                 SetTextureEditorInfo();
                 _changesMade = false;
