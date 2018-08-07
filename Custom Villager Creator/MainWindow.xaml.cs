@@ -19,6 +19,7 @@ using GCNToolKit.Formats.Colors;
 using Image = System.Windows.Controls.Image;
 using Microsoft.Win32;
 using Color = System.Windows.Media.Color;
+using PixelFormat = System.Drawing.Imaging.PixelFormat;
 
 namespace Custom_Villager_Creator
 {
@@ -1235,15 +1236,8 @@ namespace Custom_Villager_Creator
             Rgba8Box.SelectionLength = 0;
         }
 
-        private void SetColorButton_Click(object sender, RoutedEventArgs e)
+        private void RefreshEntries()
         {
-            if (_selectedEntry == null ||
-                !ushort.TryParse(RgbBox.Text, NumberStyles.AllowHexSpecifier, null, out var color)) return;
-            _selectedEntry.Palette[_selectedColor] = color;
-            _selectedEntry.Rgba8Palette[_selectedColor] = RGB5A3.ToARGB8(color);
-            _changesMade = true;
-
-            // Update all images
             foreach (var entry in _textureEntries)
             {
                 entry.Argb8Data = C4.DecodeC4(entry.RawData, entry.Palette, entry.Width, entry.Height);
@@ -1255,6 +1249,18 @@ namespace Custom_Villager_Creator
                 if (panel?.Children[1] is Image img)
                     img.Source = BitmapSourceFromBitmap(entry.Texture);
             }
+        }
+
+        private void SetColorButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (_selectedEntry == null ||
+                !ushort.TryParse(RgbBox.Text, NumberStyles.AllowHexSpecifier, null, out var color)) return;
+            _selectedEntry.Palette[_selectedColor] = color;
+            _selectedEntry.Rgba8Palette[_selectedColor] = RGB5A3.ToARGB8(color);
+            _changesMade = true;
+
+            // Update all images
+            RefreshEntries();
 
             // Reload Current Bitmap & Palette
             Set_Palette_Colors(_selectedEntry.Palette);
@@ -1327,6 +1333,7 @@ namespace Custom_Villager_Creator
 
                 // Enable Controls
                 Import.IsEnabled = true;
+                ImportPalette.IsEnabled = true;
                 Dump.IsEnabled = true;
                 DumpAll.IsEnabled = true;
                 RedSlider.IsEnabled = true;
@@ -1370,6 +1377,30 @@ namespace Custom_Villager_Creator
             }
 
             return Utility.CreateBitmap(rgbaBuffer, boxWidth, boxHeight * 16);
+        }
+
+        private static IEnumerable<int> GetPaletteFromImage(IEnumerable<int> imageData)
+        {
+            var palette = new List<int>();
+            foreach (var pixel in imageData)
+            {
+                var found = false;
+                foreach (var color in palette)
+                {
+                    if (pixel != color) continue;
+                    found = true;
+                    break;
+                }
+
+                if (found) continue;
+                palette.Add(pixel);
+                if (palette.Count >= 16)
+                {
+                    break;
+                }
+            }
+
+            return palette.ToArray();
         }
 
         private static IList<int> ConvertToClosestColors(IList<int> data, int[] palette)
@@ -1418,6 +1449,57 @@ namespace Custom_Villager_Creator
             {
                 MessageBox.Show("The width and height of them image must match the selected entry!", "Import Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private void ImportPaletteFile(string paletteFileLocation)
+        {
+            if (!File.Exists(paletteFileLocation) && _selectedEntry == null) return;
+
+            Bitmap paletteImg = null;
+            try
+            {
+                paletteImg = (Bitmap) System.Drawing.Image.FromFile(paletteFileLocation);
+            }
+            catch
+            {
+                // Ignore error
+            }
+
+            if (paletteImg == null) return;
+
+            var bmpData = paletteImg.LockBits(new Rectangle(0, 0, paletteImg.Width, paletteImg.Height),
+                ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb);
+
+            var imageData = new int[paletteImg.Width * paletteImg.Height];
+            Marshal.Copy(bmpData.Scan0, imageData, 0, imageData.Length);
+            paletteImg.Dispose();
+
+            var palette = GetPaletteFromImage(imageData);
+            var paletteArray = palette as int[] ?? palette.ToArray();
+            for (var i = 0; i < paletteArray.Length; i++)
+            {
+                _selectedEntry.Rgba8Palette[i] = (uint) paletteArray[i];
+                _selectedEntry.Palette[i] = RGB5A3.ToRGB5A3(paletteArray[i]);
+            }
+
+            // Refresh texture entries
+            RefreshEntries();
+
+            // Reload Current Bitmap & Palette
+            Set_Palette_Colors(_selectedEntry.Palette);
+            SelectedImage.Source = BitmapSourceFromBitmap(_selectedEntry.Texture);
+        }
+
+        private void ImportPalette_OnClick(object sender, RoutedEventArgs e)
+        {
+            var oDialog = new OpenFileDialog
+            {
+                Filter = "PNG Files (*.png)|*.png"
+            };
+
+            var result = oDialog.ShowDialog();
+            if (result == null || !result.Value) return;
+            ImportPaletteFile(oDialog.FileName);
         }
 
         private void DumpSelected_Click(object sender, RoutedEventArgs e)

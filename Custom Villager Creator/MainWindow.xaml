@@ -16,9 +16,10 @@
                 </MenuItem>
                 <MenuItem Header="_Texture">
                     <MenuItem x:Name="Import" Header="_Import Over Selected" IsEnabled="False" Click="ImportOverSelected_Click"/>
+                    <MenuItem x:Name="ImportPalette" Header="Import Palette _File" IsEnabled="False" Click="ImportPalette_OnClick"/>
                     <MenuItem x:Name="Dump" Header="_Dump Selected" IsEnabled="False" Click="DumpSelected_Click"/>
                     <MenuItem x:Name="DumpAll" Header="Dump _All" IsEnabled="False" Click="DumpAll_Click"/>
-                    <MenuItem x:Name="DumPaletteFile" Header="Dump _Palettes in File" IsEnabled="True" Click="DumpPaletteFile_Click"/>
+                    <MenuItem x:Name="DumpPaletteFile" Header="Dump _Palettes in File" IsEnabled="True" Click="DumpPaletteFile_Click"/>
                 </MenuItem>
             </Menu>
         </DockPanel>
@@ -48,7 +49,7 @@
                             </Canvas.Background>
                         </Canvas>
                     </Grid>
-                    <TreeView x:Name="EntryTreeView" HorizontalAlignment="Right" Width="185" Margin="0,20,10,0"/>
+                    <TreeView x:Name="EntryTreeView" HorizontalAlignment="Right" Width="185"/>
                     <DockPanel LastChildFill="False"  Width="512" Margin="0,0,380,5" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Center">
                         <DockPanel.Resources>
                             <Style TargetType="{x:Type Border}">
