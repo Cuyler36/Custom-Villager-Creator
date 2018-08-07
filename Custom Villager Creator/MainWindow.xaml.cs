@@ -1487,6 +1487,7 @@ namespace Custom_Villager_Creator
 
             // Reload Current Bitmap & Palette
             Set_Palette_Colors(_selectedEntry.Palette);
+            SetPaletteColor(_selectedColor);
             SelectedImage.Source = BitmapSourceFromBitmap(_selectedEntry.Texture);
         }
 
