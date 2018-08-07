@@ -31,13 +31,14 @@ namespace Custom_Villager_Creator
             for (var i = 0; i < maxLength; i++)
             {
                 var character = i >= text.Length ? " " : text.Substring(i, 1);
-                if (i >= text.Length || !CharacterSet.CharSet.ContainsValue(character))
+                var characterIndex = Array.IndexOf(CharacterSet.CharSet, character);
+                if (i >= text.Length || characterIndex < 0)
                 {
                     *data++ = 0x20;
                 }
                 else
                 {
-                    *data++ = CharacterSet.CharSet.FirstOrDefault(o => o.Value == character).Key;
+                    *data++ = (byte) characterIndex;
                 }
             }
         }
