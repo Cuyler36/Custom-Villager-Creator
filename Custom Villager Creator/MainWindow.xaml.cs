@@ -981,7 +981,7 @@ namespace Custom_Villager_Creator
         {
             if (_selectedEntry == null) return;
             MousePosition_to_Coordinates(e, out var x, out var y);
-            PositionLabel.Content = $"X: {x} Y: {y}";
+            PositionLabel.Content = $"X: {x + 1} Y: {y + 1}";
             if ((_lastX == x && _lastY == y) || x >= _selectedEntry.Width) return;
 
             if (_leftMouseButtonDown)
