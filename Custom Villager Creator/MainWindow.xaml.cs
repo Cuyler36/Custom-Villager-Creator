@@ -933,7 +933,7 @@ namespace Custom_Villager_Creator
             SelectedImage.Source = BitmapSourceFromBitmap(entry.Texture);
             Set_Palette_Colors(entry.Palette);
             _selectedEntry = entry;
-            SelectedLabel.Content = $"{entry.TextureName} - {entry.EntryIndex}";
+            SelectedLabel.Content = $"{entry.TextureName}";
             SetPaletteColor(_selectedColor);
 
             ImageGrid.Width = 512.0f * (entry.Width / 32.0f);
@@ -1314,7 +1314,7 @@ namespace Custom_Villager_Creator
                 SelectedImage.Source = BitmapSourceFromBitmap(_textureEntries[0].Texture);
                 Set_Palette_Colors(_textureEntries[0].Palette);
                 _selectedEntry = _textureEntries[0];
-                SelectedLabel.Content = $"{_selectedEntry.TextureName} - {_selectedEntry.EntryIndex}";
+                SelectedLabel.Content = $"{_selectedEntry.TextureName}";
                 SetPaletteColor(0);
 
                 ImageGrid.Width = (512.0f * (_selectedEntry.Width / 32.0f));
