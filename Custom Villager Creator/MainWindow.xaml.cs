@@ -253,14 +253,14 @@ namespace Custom_Villager_Creator
             HouseIndexComboBox.SelectionChanged += delegate
             {
                 if (_villager == null || HouseIndexComboBox.SelectedIndex < 0 || HouseIndexComboBox.SelectedIndex > 508) return;
-                _villager.Header.HouseRoomBaseLayerInfoId = (ushort)HouseIndexComboBox.SelectedIndex;
+                _villager.Header.HouseRoomBaseLayerInfoId = (ushort)(HouseIndexComboBox.SelectedIndex + 0x1A0);
                 _changesMade = true;
             };
 
             HouseSecondIndexComboBox.SelectionChanged += delegate
             {
                 if (_villager == null || HouseSecondIndexComboBox.SelectedIndex < 0 || HouseSecondIndexComboBox.SelectedIndex > 508) return;
-                _villager.Header.HouseRoomSecondLayerInfoId = (ushort)HouseSecondIndexComboBox.SelectedIndex;
+                _villager.Header.HouseRoomSecondLayerInfoId = (ushort)(HouseSecondIndexComboBox.SelectedIndex + 0x1A0);
                 _changesMade = true;
             };
         }
