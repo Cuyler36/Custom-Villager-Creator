@@ -98,7 +98,7 @@ namespace Custom_Villager_Creator
                     { "Feet", new Size(16, 16) }
                 }
             },
-            { "Squirrel", new Dictionary<string, Size> // 
+            { "Squirrel", new Dictionary<string, Size>
                 {
                     { "Eyes 1", new Size(32, 16) },
                     { "Eyes 2", new Size(32, 16) },
@@ -114,11 +114,113 @@ namespace Custom_Villager_Creator
                     { "Mouth 4", new Size(32, 16) },
                     { "Mouth 5", new Size(32, 16) },
                     { "Mouth 6", new Size(32, 16) },
-                    { "Ears", new Size(16, 08) },
+                    { "Ears (Front)", new Size(16, 08) },
                     { "Head", new Size(32, 32) },
-                    { "Body", new Size(16, 08) },
-                    { "Arms", new Size(16, 16) },
+                    { "Ears (Back)", new Size(16, 08) },
+                    { "Arms & Legs", new Size(16, 16) },
                     { "Tail", new Size(16, 32) }
+                }
+            },
+            { "Duck", new Dictionary<string, Size>
+                {
+                    { "Eyes 1", new Size(32, 16) },
+                    { "Eyes 2", new Size(32, 16) },
+                    { "Eyes 3", new Size(32, 16) },
+                    { "Eyes 4", new Size(32, 16) },
+                    { "Eyes 5", new Size(32, 16) },
+                    { "Eyes 6", new Size(32, 16) },
+                    { "Eyes 7", new Size(32, 16) },
+                    { "Eyes 8", new Size(32, 16) },
+                    { "Mouth 1", new Size(32, 16) },
+                    { "Mouth 2", new Size(32, 16) },
+                    { "Mouth 3", new Size(32, 16) },
+                    { "Mouth 4", new Size(32, 16) },
+                    { "Mouth 5", new Size(32, 16) },
+                    { "Mouth 6", new Size(32, 16) },
+                    { "Bill (Lower)", new Size(16, 8) },
+                    { "Head", new Size(32, 32) },
+                    { "Bill (Upper)", new Size(16, 8) },
+                    { "Arms", new Size(16, 16) },
+                    { "Body", new Size(32, 8) },
+                    { "Legs", new Size(16, 16) },
+                }
+            },
+            { "Wolf", new Dictionary<string, Size>
+                {
+                    { "Eyes 1", new Size(32, 16) },
+                    { "Eyes 2", new Size(32, 16) },
+                    { "Eyes 3", new Size(32, 16) },
+                    { "Eyes 4", new Size(32, 16) },
+                    { "Eyes 5", new Size(32, 16) },
+                    { "Eyes 6", new Size(32, 16) },
+                    { "Eyes 7", new Size(32, 16) },
+                    { "Eyes 8", new Size(32, 16) },
+                    { "Mouth", new Size(16, 16) },
+                    { "Head", new Size(32, 32) },
+                    { "Snout", new Size(16, 16) },
+                    { "Ears", new Size(16, 16) },
+                    { "Arms & Legs", new Size(16, 16) }
+                }
+            },
+            { "Tiger", new Dictionary<string, Size>
+                {
+                    { "Eyes 1", new Size(32, 16) },
+                    { "Eyes 2", new Size(32, 16) },
+                    { "Eyes 3", new Size(32, 16) },
+                    { "Eyes 4", new Size(32, 16) },
+                    { "Eyes 5", new Size(32, 16) },
+                    { "Eyes 6", new Size(32, 16) },
+                    { "Eyes 7", new Size(32, 16) },
+                    { "Eyes 8", new Size(32, 16) },
+                    { "Mouth", new Size(16, 8) },
+                    { "Snout", new Size(32, 16) },
+                    { "Chin", new Size(32, 8) },
+                    { "Head", new Size(32, 40) },
+                    { "Ears", new Size(16, 8) },
+                    { "Arms & Legs", new Size(16, 16) },
+                    { "Tail", new Size(16, 16) }
+                }
+            },
+            { "Octopus", new Dictionary<string, Size>
+                {
+                    { "Eyes 1", new Size(32, 16) },
+                    { "Eyes 2", new Size(32, 16) },
+                    { "Eyes 3", new Size(32, 16) },
+                    { "Eyes 4", new Size(32, 16) },
+                    { "Eyes 5", new Size(32, 16) },
+                    { "Eyes 6", new Size(32, 16) },
+                    { "Eyes 7", new Size(32, 16) },
+                    { "Eyes 8", new Size(32, 16) },
+                    { "Mouth", new Size(16, 16) },
+                    { "Head", new Size(16, 16) },
+                    { "Lower Face", new Size(32, 16) },
+                    { "Arms", new Size(16, 16) },
+                    { "Legs", new Size(16, 16) }
+                }
+            },
+            { "Lion", new Dictionary<string, Size>
+                {
+                    { "Eyes 1", new Size(32, 16) },
+                    { "Eyes 2", new Size(32, 16) },
+                    { "Eyes 3", new Size(32, 16) },
+                    { "Eyes 4", new Size(32, 16) },
+                    { "Eyes 5", new Size(32, 16) },
+                    { "Eyes 6", new Size(32, 16) },
+                    { "Eyes 7", new Size(32, 16) },
+                    { "Eyes 8", new Size(32, 16) },
+                    { "Mouth 1", new Size(32, 16) },
+                    { "Mouth 2", new Size(32, 16) },
+                    { "Mouth 3", new Size(32, 16) },
+                    { "Mouth 4", new Size(32, 16) },
+                    { "Mouth 5", new Size(32, 16) },
+                    { "Mouth 6", new Size(32, 16) },
+                    { "Glasses", new Size(16, 8) },
+                    { "Ears", new Size(16, 8) },
+                    { "Head (Mane)", new Size(32, 40) },
+                    { "Chin", new Size(32, 8) },
+                    { "Head (Top)", new Size(32, 8) },
+                    { "Arms & Legs", new Size(16, 8) },
+                    { "Tail", new Size(32, 8) }
                 }
             },
             { "Cub", new Dictionary<string, Size> // 
@@ -145,7 +247,7 @@ namespace Custom_Villager_Creator
                     { "Feet", new Size(16, 16) }
                 }
             },
-            { "Penguin", new Dictionary<string, Size> // 
+            { "Ostrich", new Dictionary<string, Size>
                 {
                     { "Eyes 1", new Size(32, 16) },
                     { "Eyes 2", new Size(32, 16) },
@@ -155,15 +257,55 @@ namespace Custom_Villager_Creator
                     { "Eyes 6", new Size(32, 16) },
                     { "Eyes 7", new Size(32, 16) },
                     { "Eyes 8", new Size(32, 16) },
-                    { "Mouth Closed", new Size(16, 8) },
-                    { "Mouth Open", new Size(16, 8) },
-                    { "Head", new Size(32, 16) },
-                    { "Body", new Size(32, 32) },
+                    { "Beak", new Size(16, 8) },
+                    { "Hair", new Size(16, 16) },
+                    { "Lower Face", new Size(32, 16) },
+                    { "Head", new Size(32, 32) },
+                    { "Arms", new Size(16, 8) },
+                    { "Tail", new Size(16, 24) },
+                    { "Feet", new Size(16, 8) },
+                    { "Body", new Size(16, 8) }
+                }
+            },
+            { "Eagle", new Dictionary<string, Size>
+            {
+                { "Eyes 1", new Size(32, 16) },
+                { "Eyes 2", new Size(32, 16) },
+                { "Eyes 3", new Size(32, 16) },
+                { "Eyes 4", new Size(32, 16) },
+                { "Eyes 5", new Size(32, 16) },
+                { "Eyes 6", new Size(32, 16) },
+                { "Eyes 7", new Size(32, 16) },
+                { "Eyes 8", new Size(32, 16) },
+                { "Inner Beak", new Size(16, 8) },
+                { "Head", new Size(16, 32) },
+                { "Neck", new Size(48, 16) },
+                { "Outer Beak", new Size(16, 16) },
+                { "Arms", new Size(16, 8) },
+                { "Tail", new Size(16, 24) },
+                { "Feet", new Size(16, 8) },
+                { "Legs", new Size(16, 8) },
+                { "Body", new Size(16, 8) }
+            }
+        },
+            { "Penguin", new Dictionary<string, Size>
+                {
+                    { "Eyes 1", new Size(32, 16) },
+                    { "Eyes 2", new Size(32, 16) },
+                    { "Eyes 3", new Size(32, 16) },
+                    { "Eyes 4", new Size(32, 16) },
+                    { "Eyes 5", new Size(32, 16) },
+                    { "Eyes 6", new Size(32, 16) },
+                    { "Eyes 7", new Size(32, 16) },
+                    { "Eyes 8", new Size(32, 16) },
+                    { "Beak", new Size(32, 8) },
+                    { "Head (Back)", new Size(32, 16) },
+                    { "Body", new Size(32, 16) }, // Check this size (Might be two separate things)
+                    { "Eyebrows", new Size(32, 16) },
                     { "Arms", new Size(16, 16) },
-                    { "Tail", new Size(32, 8) }, // Not a tail. Might be two 16 * 8 things.
+                    { "Head (Top)", new Size(32, 8) },
                     { "Feet", new Size(16, 16) },
-                    { "Bottom Right", new Size(16, 8) },
-                    { "Bottom Left", new Size(16, 8) }
+                    { "Stomach", new Size(32, 8) }
                 }
             }
         };
