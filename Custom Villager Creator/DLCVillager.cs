@@ -98,8 +98,8 @@ namespace Custom_Villager_Creator
         [FieldOffset(0x10)] public HousePalette HousePalette;
         [FieldOffset(0x11)] public byte WallpaperId;
         [FieldOffset(0x12)] public byte CarpetId;
-        [FieldOffset(0x13)] public ushort HouseRoomInfoId;
-        [FieldOffset(0x15)] public ushort IslandRoomInfoId;
+        [FieldOffset(0x13)] public ushort HouseRoomBaseLayerInfoId;
+        [FieldOffset(0x15)] public ushort HouseRoomSecondLayerInfoId;
         [FieldOffset(0x17)] public byte UmbrellaId;
         [FieldOffset(0x18)] public byte SongId;
         [FieldOffset(0x19)] public ushort Unknown1;
@@ -144,8 +144,8 @@ namespace Custom_Villager_Creator
         public DLCVillager(Stream villagerFile)
         {
             Header = StructReader.ReadStruct<DLCVillagerHeader>(villagerFile);
-            Header.HouseRoomInfoId = Header.HouseRoomInfoId.Reverse();
-            Header.IslandRoomInfoId = Header.IslandRoomInfoId.Reverse();
+            Header.HouseRoomBaseLayerInfoId = Header.HouseRoomBaseLayerInfoId.Reverse();
+            Header.HouseRoomSecondLayerInfoId = Header.HouseRoomSecondLayerInfoId.Reverse();
             Header.Unknown1 = Header.Unknown1.Reverse(); // Swap endianness
             villagerFile.Seek(0x25, SeekOrigin.Begin);
             villagerFile.Read(UnknownTextureData, 0, 0x820);

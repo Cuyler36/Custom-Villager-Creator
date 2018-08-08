@@ -51,659 +51,52 @@ namespace Custom_Villager_Creator
         private DLCVillager _villager;
         private bool _changesMade;
 
-        #region ItemNames
-
-        private static readonly string[] ShirtNames =
-        {
-            "flame shirt",
-            "paw shirt",
-            "wavy pink shirt",
-            "future shirt",
-            "bold check shirt",
-            "mint gingham",
-            "bad plaid shirt",
-            "speedway shirt",
-            "folk shirt",
-            "daisy shirt",
-            "wavy tan shirt",
-            "optical shirt",
-            "rugby shirt",
-            "sherbet gingham",
-            "yellow tartan",
-            "gelato shirt",
-            "work uniform",
-            "patched shirt",
-            "plum kimono",
-            "somber robe",
-            "red sweatsuit",
-            "blue sweatsuit",
-            "red puffy vest",
-            "blue puffy vest",
-            "summer robe",
-            "bamboo robe",
-            "red aloha shirt",
-            "blue aloha shirt",
-            "dark polka shirt",
-            "lite polka shirt",
-            "lovely shirt",
-            "citrus shirt",
-            "kiwi shirt",
-            "watermelon shirt",
-            "strawberry shirt",
-            "grape shirt",
-            "melon shirt",
-            "Jingle shirt",
-            "blossom shirt",
-            "icy shirt",
-            "crewel shirt",
-            "tropical shirt",
-            "ribbon shirt",
-            "fall plaid shirt",
-            "fiendish shirt",
-            "chevron shirt",
-            "ladybug shirt",
-            "botanical shirt",
-            "Anju's shirt",
-            "Kaffe's shirt",
-            "lavender robe",
-            "blue grid shirt",
-            "butterfly shirt",
-            "blue tartan",
-            "Gracie's top",
-            "orange tie-dye",
-            "purple tie-dye",
-            "green tie-dye",
-            "blue tie-dye",
-            "red tie-dye",
-            "one-ball shirt",
-            "two-ball shirt",
-            "three-ball shirt",
-            "four-ball shirt",
-            "five-ball shirt",
-            "six-ball shirt",
-            "seven-ball shirt",
-            "eight-ball shirt",
-            "nine-ball shirt",
-            "arctic camo",
-            "jungle camo",
-            "desert camo",
-            "rally shirt",
-            "racer shirt",
-            "racer 6 shirt",
-            "fish bone shirt",
-            "spiderweb shirt",
-            "zipper shirt",
-            "bubble shirt",
-            "yellow bolero",
-            "nebula shirt",
-            "neo-classic knit",
-            "noble shirt",
-            "turnip top",
-            "oft-seen print",
-            "ski sweater",
-            "circus shirt",
-            "patchwork top",
-            "mod top",
-            "hippie shirt",
-            "rickrack shirt",
-            "diner uniform",
-            "shirt circuit",
-            "U R here shirt",
-            "yodel shirt",
-            "pulse shirt",
-            "prism shirt",
-            "star shirt",
-            "straw shirt",
-            "noodle shirt",
-            "dice shirt",
-            "kiddie shirt",
-            "frog shirt",
-            "moody blue shirt",
-            "cloudy shirt",
-            "fortune shirt",
-            "skull shirt",
-            "desert shirt",
-            "aurora knit",
-            "winter sweater",
-            "go-go shirt",
-            "jade check print",
-            "blue check print",
-            "red grid shirt",
-            "flicker shirt",
-            "floral knit",
-            "rose shirt",
-            "sunset top",
-            "chain-gang shirt",
-            "spring shirt",
-            "bear shirt",
-            "MVP shirt",
-            "silk bloom shirt",
-            "pop bloom shirt",
-            "loud bloom shirt",
-            "hot spring shirt",
-            "new spring shirt",
-            "deep blue tee",
-            "snowcone shirt",
-            "ugly shirt",
-            "sharp outfit",
-            "painter's smock",
-            "spade shirt",
-            "blossoming shirt",
-            "peachy shirt",
-            "static shirt",
-            "rainbow shirt",
-            "groovy shirt",
-            "loud line shirt",
-            "dazed shirt",
-            "red bar shirt",
-            "blue stripe knit",
-            "earthy knit",
-            "spunky knit",
-            "deer shirt",
-            "blue check shirt",
-            "light line shirt",
-            "blue pinstripe",
-            "diamond shirt",
-            "lime line shirt",
-            "big bro's shirt",
-            "green bar shirt",
-            "yellow bar shirt",
-            "monkey shirt",
-            "polar fleece",
-            "ancient knit",
-            "fish knit",
-            "vertigo shirt",
-            "misty shirt",
-            "stormy shirt",
-            "red scale shirt",
-            "blue scale shirt",
-            "heart shirt",
-            "yellow pinstripe",
-            "club shirt",
-            "li'l bro's shirt",
-            "argyle knit",
-            "caveman tunic",
-            "caf| shirt",
-            "tiki shirt",
-            "A shirt",
-            "checkered shirt",
-            "No.1 shirt",
-            "No.2 shirt",
-            "No.3 shirt",
-            "No.4 shirt",
-            "No.5 shirt",
-            "No.23 shirt",
-            "No.67 shirt",
-            "BB shirt",
-            "beatnik shirt",
-            "moldy shirt",
-            "houndstooth tee",
-            "big star shirt",
-            "orange pinstripe",
-            "twinkle shirt",
-            "funky dot shirt",
-            "crossing shirt",
-            "splendid shirt",
-            "jagged shirt",
-            "denim shirt",
-            "cherry shirt",
-            "gumdrop shirt",
-            "barber shirt",
-            "concierge shirt",
-            "fresh shirt",
-            "far-out shirt",
-            "dawn shirt",
-            "striking outfit",
-            "red check shirt",
-            "berry gingham",
-            "lemon gingham",
-            "dragon suit",
-            "G logo shirt",
-            "tin shirt",
-            "jester shirt",
-            "pink tartan",
-            "waffle shirt",
-            "gray tartan",
-            "windsock shirt",
-            "trendy top",
-            "green ring shirt",
-            "white ring shirt",
-            "snappy print",
-            "chichi print",
-            "wave print",
-            "checkerboard tee",
-            "subdued print",
-            "airy shirt",
-            "coral shirt",
-            "leather jerkin",
-            "zebra print",
-            "tiger print",
-            "cow print",
-            "leopard print",
-            "danger shirt",
-            "big dot shirt",
-            "puzzling shirt",
-            "exotic shirt",
-            "houndstooth knit",
-            "uncommon shirt",
-            "dapper shirt",
-            "gaudy sweater",
-            "cozy sweater",
-            "comfy sweater",
-            "classic top",
-            "vogue top",
-            "laced shirt",
-            "natty shirt",
-            "citrus gingham",
-            "cool shirt",
-            "dreamy shirt",
-            "flowery shirt",
-            "caterpillar tee",
-            "shortcake shirt",
-            "whirly shirt",
-            "thunder shirt",
-            "giraffe print",
-            "swell shirt",
-            "toad print",
-            "grass shirt",
-            "mosaic shirt",
-            "fetching outfit",
-            "snow shirt",
-            "melon gingham",
-            "mannequin shirt"
-        };
-
-        private static readonly string[] MinidiskNames =
-        {
-            "K.K. Chorale",
-            "K.K. March",
-            "K.K. Waltz",
-            "K.K. Swing",
-            "K.K. Jazz",
-            "K.K. Fusion",
-            "K.K. Etude",
-            "K.K. Lullaby",
-            "K.K. Aria",
-            "K.K. Samba",
-            "K.K. Bossa",
-            "K.K. Calypso",
-            "K.K. Salsa",
-            "K.K. Mambo",
-            "K.K. Reggae",
-            "K.K. Ska",
-            "K.K. Tango",
-            "K.K. Faire",
-            "Aloha K.K.",
-            "Lucky K.K.",
-            "K.K. Condor",
-            "K.K. Steppe",
-            "Imperial K.K.",
-            "K.K. Casbah",
-            "K.K. Safari",
-            "K.K. Folk",
-            "K.K. Rock",
-            "Rockin' K.K.",
-            "K.K. Ragtime",
-            "K.K. Gumbo",
-            "The K. Funk",
-            "K.K. Blues",
-            "Soulful K.K.",
-            "K.K. Soul",
-            "K.K. Cruisin'",
-            "K.K. Love Song",
-            "K.K. D & B",
-            "K.K. Technopop",
-            "DJ K.K.",
-            "Only Me",
-            "K.K. Country",
-            "Surfin' K.K.",
-            "K.K. Ballad",
-            "Comrade K.K.",
-            "K.K. Lament",
-            "Go K.K. Rider!",
-            "K.K. Dirge",
-            "K.K. Western",
-            "Mr. K.K.",
-            "Cafe K.K.",
-            "K.K. Parade",
-            "Senor K.K.",
-            "My Place",
-            "Forest Life",
-            "To the Edge",
-            "K.K. Song",
-            "I Love You",
-            "Two Days Ago",
-            "K.K. Marathon",
-            "Pondering",
-            "K.K. Rockabilly",
-            "K.K. Dixie",
-            "K.K. Metal",
-            "King K.K.",
-            "K.K. Rally",
-            "Agent K.K.",
-            "Marine Song 2001",
-            "Neapolitan",
-            "Mountain Song",
-            "Steep Hill",
-            "K.K. Chorale (instrumental)",
-            "K.K. March (instrumental)",
-            "K.K. Waltz (instrumental)",
-            "K.K. Swing (instrumental)",
-            "K.K. Jazz (instrumental)",
-            "K.K. Fusion (instrumental)",
-            "K.K. Etude (instrumental)",
-            "K.K. Lullaby (instrumental)",
-            "K.K. Aria (instrumental)",
-            "K.K. Samba (instrumental)",
-            "K.K. Bossa (instrumental)",
-            "K.K. Calypso (instrumental)",
-            "K.K. Salsa (instrumental)",
-            "K.K. Mambo (instrumental)",
-            "K.K. Reggae (instrumental)",
-            "K.K. Ska (instrumental)",
-            "K.K. Tango (instrumental)",
-            "K.K. Faire (instrumental)",
-            "Aloha K.K. (instrumental)",
-            "Lucky K.K. (instrumental)",
-            "K.K. Condor (instrumental)",
-            "K.K. Steppe (instrumental)",
-            "Imperial K.K. (instrumental)",
-            "K.K. Casbah (instrumental)",
-            "K.K. Safari (instrumental)",
-            "K.K. Folk (instrumental)",
-            "K.K. Rock (instrumental)",
-            "Rockin' K.K. (instrumental)",
-            "K.K. Ragtime (instrumental)",
-            "K.K. Gumbo (instrumental)",
-            "The K. Funk (instrumental)",
-            "K.K. Blues (instrumental)",
-            "Soulful K.K. (instrumental)",
-            "K.K. Soul (instrumental)",
-            "K.K. Cruisin' (instrumental)",
-            "K.K. Love Song (instrumental)",
-            "K.K. D & B (instrumental)",
-            "K.K. Technopop (instrumental)",
-            "DJ K.K. (instrumental)",
-            "Only Me (instrumental)",
-            "K.K. Country (instrumental)",
-            "Surfin' K.K. (instrumental)",
-            "K.K. Ballad (instrumental)",
-            "Comrade K.K. (instrumental)",
-            "K.K. Lament (instrumental)",
-            "Go K.K. Rider! (instrumental)",
-            "K.K. Dirge (instrumental)",
-            "K.K. Western (instrumental)",
-            "Mr. K.K. (instrumental)",
-            "Cafe K.K. (instrumental)",
-            "K.K. Parade (instrumental)",
-            "Senor K.K. (instrumental)",
-            "My Place (instrumental)",
-            "Forest Life (instrumental)",
-            "To the Edge (instrumental)",
-            "K.K. Song (instrumental)",
-            "I Love You (instrumental)",
-            "Two Days Ago (instrumental)",
-            "K.K. Marathon (instrumental)",
-            "Pondering (instrumental)",
-            "K.K. Rockabilly (instrumental)",
-            "K.K. Dixie (instrumental)",
-            "K.K. Metal (instrumental)",
-            "King K.K. (instrumental)",
-            "K.K. Rally (instrumental)",
-            "Agent K.K. (instrumental)",
-            "Marine Song 2001 (instrumental)",
-            "Neapolitan (instrumental)",
-            "Mountain Song (instrumental)",
-            "Steep Hill (instrumental)"
-        };
-
-        private static readonly string[] WallpaperNames =
-        {
-            "chic wall",
-            "classic wall",
-            "parlor wall",
-            "stone wall",
-            "blue-trim wall",
-            "plaster wall",
-            "classroom wall",
-            "lovely wall",
-            "exotic wall",
-            "mortar wall",
-            "gold screen wall",
-            "tea room wall",
-            "citrus wall",
-            "cabin wall",
-            "blue tarp",
-            "lunar horizon",
-            "garden wall",
-            "spooky wall",
-            "western vista",
-            "green wall",
-            "blue wall",
-            "regal wall",
-            "ranch wall",
-            "modern wall",
-            "cabana wall",
-            "snowman wall",
-            "backyard fence",
-            "music room wall",
-            "plaza wall",
-            "lattice wall",
-            "ornate wall",
-            "modern screen",
-            "bamboo wall",
-            "kitchen wall",
-            "old brick wall",
-            "stately wall",
-            "imperial wall",
-            "manor wall",
-            "ivy wall",
-            "mod wall",
-            "rose wall",
-            "wood paneling",
-            "concrete wall",
-            "office wall",
-            "ancient wall",
-            "exquisite wall",
-            "sandlot wall",
-            "jingle wall",
-            "meadow vista",
-            "tree-lined wall",
-            "mosaic wall",
-            "arched window",
-            "basement wall",
-            "backgammon wall",
-            "kiddie wall",
-            "shanty wall",
-            "industrial wall",
-            "desert vista",
-            "library wall",
-            "floral wall",
-            "tropical vista",
-            "playroom wall",
-            "kitschy wall",
-            "groovy wall",
-            "mushroom mural",
-            "ringside seating",
-            "harvest wall",
-            "bathhouse wall",
-            "japanese wall"
-        };
-
-        public static readonly string[] CarpetNames =
-        {
-            "plush carpet",
-            "classic carpet",
-            "checkered tile",
-            "old flooring",
-            "red tile",
-            "birch flooring",
-            "classroom floor",
-            "lovely carpet",
-            "exotic rug",
-            "mossy carpet",
-            "18 mat tatami",
-            "8 mat tatami",
-            "citrus carpet",
-            "cabin rug",
-            "closed road",
-            "lunar surface",
-            "sand garden",
-            "spooky carpet",
-            "western desert",
-            "green rug",
-            "blue flooring",
-            "regal carpet",
-            "ranch flooring",
-            "modern tile",
-            "cabana flooring",
-            "snowman carpet",
-            "backyard lawn",
-            "music room floor",
-            "plaza tile",
-            "kitchen tile",
-            "ornate rug",
-            "tatami floor",
-            "bamboo flooring",
-            "kitchen flooring",
-            "charcoal tile",
-            "stone tile",
-            "imperial tile",
-            "opulent rug",
-            "slate flooring",
-            "ceramic tile",
-            "fancy carpet",
-            "cowhide rug",
-            "steel flooring",
-            "office flooring",
-            "ancient tile",
-            "exquisite rug",
-            "sandlot",
-            "jingle carpet",
-            "daisy meadow",
-            "sidewalk",
-            "mosaic tile",
-            "parquet floor",
-            "basement floor",
-            "chessboard rug",
-            "kiddie carpet",
-            "shanty mat",
-            "concrete floor",
-            "saharah's desert",
-            "tartan rug",
-            "palace tile",
-            "tropical floor",
-            "playroom rug",
-            "kitschy tile",
-            "diner tile",
-            "block flooring",
-            "boxing ring mat",
-            "harvest rug",
-            "bathhouse tile",
-            "japanese floor"
-        };
-
-        private static readonly string[] ToolNames =
-        {
-            "gelato umbrella",
-            "daffodil parasol",
-            "berry umbrella",
-            "orange umbrella",
-            "mod umbrella",
-            "petal parasol",
-            "ribbon parasol",
-            "gingham parasol",
-            "plaid parasol",
-            "lacy parasol",
-            "elegant umbrella",
-            "dainty parasol",
-            "classic umbrella",
-            "nintendo parasol",
-            "bumbershoot",
-            "sunny parasol",
-            "batbrella",
-            "checked umbrella",
-            "yellow umbrella",
-            "leaf umbrella",
-            "lotus parasol",
-            "paper parasol",
-            "polka parasol",
-            "sharp umbrella",
-            "twig parasol",
-            "noodle parasol",
-            "hypno parasol",
-            "pastel parasol",
-            "retro umbrella",
-            "icy umbrella",
-            "blue umbrella",
-            "flame umbrella",
-            "pattern #1 umbrella",
-            "pattern #2 umbrella",
-            "pattern #3 umbrella",
-            "pattern #4 umbrella",
-            "pattern #5 umbrella",
-            "pattern #6 umbrella",
-            "pattern #7 umbrella",
-            "pattern #8 umbrella"
-        };
-
-        #endregion
-
-        #region Other String Arrays
-
-        private static readonly string[] StarSigns =
-        {
-            "Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo",
-            "Libra", "Scorpio", "Sagittarius", "Capricorn", "Aquarius", "Pisces"
-        };
-
-        private static readonly string[] ClothingTypes =
-        {
-            "Cool", "Cute", "Funky", "Fresh", "Fancy",
-            "Subtle", "Refined", "Gaudy", "Striking", "Strange"
-        };
-
-        #endregion
-
         public MainWindow()
         {
             InitializeComponent();
 
             // Set up combobox items
-            foreach (var shirt in ShirtNames)
+            foreach (var shirt in Static.ShirtNames)
             {
                 ShirtComboBox.Items.Add(shirt);
             }
 
-            foreach (var minidisk in MinidiskNames)
+            foreach (var minidisk in Static.MinidiskNames)
             {
                 MinidiskComboBox.Items.Add(minidisk);
             }
 
-            foreach (var wallpaper in WallpaperNames)
+            foreach (var wallpaper in Static.WallpaperNames)
             {
                 WallpaperComboBox.Items.Add(wallpaper);
             }
 
-            foreach (var carpet in CarpetNames)
+            foreach (var carpet in Static.CarpetNames)
             {
                 CarpetComboBox.Items.Add(carpet);
             }
 
-            foreach (var tool in ToolNames)
+            foreach (var tool in Static.ToolNames)
             {
                 UmbrellaComboBox.Items.Add(tool);
             }
 
-            foreach (var sign in StarSigns)
+            foreach (var sign in Static.StarSigns)
             {
                 ZodiacSignComboBox.Items.Add(sign);
             }
 
-            foreach (var type in ClothingTypes)
+            foreach (var type in Static.ClothingTypes)
             {
                 FavoriteClothComboBox.Items.Add(type);
                 HatedClothComboBox.Items.Add(type);
+            }
+
+            foreach (var npcData in Static.fgnpcdata)
+            {
+                var hexIndex = npcData.ToString("X");
+                HouseIndexComboBox.Items.Add(hexIndex);
+                HouseSecondIndexComboBox.Items.Add(hexIndex);
             }
 
             _paletteObjects = new[]
@@ -854,6 +247,20 @@ namespace Custom_Villager_Creator
             {
                 if (_villager == null || HatedClothComboBox.SelectedIndex < 0 || HatedClothComboBox.SelectedIndex > 9) return;
                 _villager.Header.HatedClothingCategory = (ClothingCategory)HatedClothComboBox.SelectedIndex;
+                _changesMade = true;
+            };
+
+            HouseIndexComboBox.SelectionChanged += delegate
+            {
+                if (_villager == null || HouseIndexComboBox.SelectedIndex < 0 || HouseIndexComboBox.SelectedIndex > 508) return;
+                _villager.Header.HouseRoomBaseLayerInfoId = (ushort)HouseIndexComboBox.SelectedIndex;
+                _changesMade = true;
+            };
+
+            HouseSecondIndexComboBox.SelectionChanged += delegate
+            {
+                if (_villager == null || HouseSecondIndexComboBox.SelectedIndex < 0 || HouseSecondIndexComboBox.SelectedIndex > 508) return;
+                _villager.Header.HouseRoomSecondLayerInfoId = (ushort)HouseSecondIndexComboBox.SelectedIndex;
                 _changesMade = true;
             };
         }
@@ -1292,6 +699,8 @@ namespace Custom_Villager_Creator
             ZodiacSignComboBox.SelectedIndex = villager.Header.Constellation;
             FavoriteClothComboBox.SelectedIndex = (int) villager.Header.FavoriteClothingCategory;
             HatedClothComboBox.SelectedIndex = (int) villager.Header.HatedClothingCategory;
+            HouseIndexComboBox.SelectedIndex = villager.Header.HouseRoomBaseLayerInfoId - 0x1A0;
+            HouseSecondIndexComboBox.SelectedIndex = villager.Header.HouseRoomSecondLayerInfoId - 0x1A0;
         }
 
         private void SetTextureEditorInfo()
@@ -1664,15 +1073,15 @@ namespace Custom_Villager_Creator
             using (var textureWriter = new BinaryWriter(new FileStream(_fileLocation, FileMode.Create)))
             {
                 var header = _villager.Header;
-                header.HouseRoomInfoId = header.HouseRoomInfoId.Reverse();
-                header.IslandRoomInfoId = header.IslandRoomInfoId.Reverse();
+                header.HouseRoomBaseLayerInfoId = header.HouseRoomBaseLayerInfoId.Reverse();
+                header.HouseRoomSecondLayerInfoId = header.HouseRoomSecondLayerInfoId.Reverse();
                 header.Unknown1 = header.Unknown1.Reverse(); // Swap endianness
 
                 // Write header while endianness is swapped
                 StructWriter.WriteStruct(_villager.Header).CopyTo(_data, 0);
 
-                header.HouseRoomInfoId = header.HouseRoomInfoId.Reverse();
-                header.IslandRoomInfoId = header.IslandRoomInfoId.Reverse();
+                header.HouseRoomBaseLayerInfoId = header.HouseRoomBaseLayerInfoId.Reverse();
+                header.HouseRoomSecondLayerInfoId = header.HouseRoomSecondLayerInfoId.Reverse();
                 header.Unknown1 = header.Unknown1.Reverse(); // Swap endianness
 
                 // Write Palette

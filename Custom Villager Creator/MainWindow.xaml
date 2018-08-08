@@ -243,6 +243,14 @@
                             <Label Content="Hated Clothing Category:" VerticalAlignment="Center"/>
                             <ComboBox x:Name="HatedClothComboBox" SelectedIndex="0" Width="100" VerticalAlignment="Center"/>
                         </StackPanel>
+                        <StackPanel Height="30" VerticalAlignment="Top" Orientation="Horizontal">
+                            <Label Content="House Base Layer Index:" VerticalAlignment="Center"/>
+                            <ComboBox x:Name="HouseIndexComboBox" SelectedIndex="0" Width="50" VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <StackPanel Height="30" VerticalAlignment="Top" Orientation="Horizontal">
+                            <Label Content="House Second Layer Index:" VerticalAlignment="Center"/>
+                            <ComboBox x:Name="HouseSecondIndexComboBox" SelectedIndex="0" Width="50" VerticalAlignment="Center"/>
+                        </StackPanel>
                     </StackPanel>
                     <Image x:Name="HousePreviewImage" HorizontalAlignment="Left" VerticalAlignment="Top" Height="32" Width="32" Margin="180, 134, 0, 0"/>
                 </Grid>
