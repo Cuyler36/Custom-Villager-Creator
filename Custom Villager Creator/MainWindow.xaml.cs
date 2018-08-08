@@ -1078,7 +1078,7 @@ namespace Custom_Villager_Creator
                 header.Unknown1 = header.Unknown1.Reverse(); // Swap endianness
 
                 // Write header while endianness is swapped
-                StructWriter.WriteStruct(_villager.Header).CopyTo(_data, 0);
+                StructWriter.WriteStruct(header).CopyTo(_data, 0);
 
                 header.HouseRoomBaseLayerInfoId = header.HouseRoomBaseLayerInfoId.Reverse();
                 header.HouseRoomSecondLayerInfoId = header.HouseRoomSecondLayerInfoId.Reverse();
@@ -1102,6 +1102,8 @@ namespace Custom_Villager_Creator
                 textureWriter.Flush();
                 textureWriter.Close();
             }
+
+            _changesMade = false;
         }
 
         private void SaveAs_Click(object sender, RoutedEventArgs e)

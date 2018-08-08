@@ -146,6 +146,17 @@ namespace Custom_Villager_Creator
             Header = StructReader.ReadStruct<DLCVillagerHeader>(villagerFile);
             Header.HouseRoomBaseLayerInfoId = Header.HouseRoomBaseLayerInfoId.Reverse();
             Header.HouseRoomSecondLayerInfoId = Header.HouseRoomSecondLayerInfoId.Reverse();
+
+            if (Header.HouseRoomBaseLayerInfoId < 0x1A0)
+            {
+                Header.HouseRoomBaseLayerInfoId = 0x1A0;
+            }
+
+            if (Header.HouseRoomSecondLayerInfoId < 0x1A0)
+            {
+                Header.HouseRoomSecondLayerInfoId = 0x1A0;
+            }
+
             Header.Unknown1 = Header.Unknown1.Reverse(); // Swap endianness
             villagerFile.Seek(0x25, SeekOrigin.Begin);
             villagerFile.Read(UnknownTextureData, 0, 0x820);
