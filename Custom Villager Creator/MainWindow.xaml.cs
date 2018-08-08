@@ -654,7 +654,7 @@ namespace Custom_Villager_Creator
         private static readonly string[] StarSigns =
         {
             "Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo",
-            "Libra", "Scorpio", "Sagittarius", "Aquarius", "Pisces"
+            "Libra", "Scorpio", "Sagittarius", "Capricorn", "Aquarius", "Pisces"
         };
 
         private static readonly string[] ClothingTypes =
