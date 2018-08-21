@@ -26,28 +26,30 @@
         <TabControl x:Name="EditorTabControl" Margin="0, 20, 0, 0">
             <TabItem Header="Texture Editor">
                 <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                    <Grid x:Name="ImageGrid" Width="512" Height="512" Margin="0,39,380,20" HorizontalAlignment="Center">
-                        <Label x:Name="PositionLabel" HorizontalContentAlignment="Right" VerticalContentAlignment="Bottom" Content="X: 0 Y: 0" Margin="0,-28,0,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="Auto"/>
-                        <Label x:Name="SelectedLabel" Content="" Margin="0,-28,0,0" HorizontalContentAlignment="Center" Height="28" VerticalAlignment="Top" HorizontalAlignment="Center" Width="Auto"/>
-                        <Image x:Name="SelectedImage" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
-                        <Canvas x:Name="ImageGridCanvas" MouseLeave="CanvasGrid_MouseUp" MouseDown="CanvasGrid_MouseDown" MouseUp="CanvasGrid_MouseUp" MouseMove="CanvasGrid_MouseMove" HorizontalAlignment="Left" Width="512">
-                            <Canvas.Background>
-                                <DrawingBrush x:Name="GridBrush" TileMode="Tile" Viewport="0,0,16,16"
-                                             ViewportUnits="Absolute">
-                                    <DrawingBrush.Drawing>
-                                        <GeometryDrawing>
-                                            <GeometryDrawing.Geometry>
-                                                <RectangleGeometry Rect="0,0,8,8"/>
-                                            </GeometryDrawing.Geometry>
-                                            <GeometryDrawing.Pen>
-                                                <Pen Brush="Gray" Thickness="0.5"/>
-                                            </GeometryDrawing.Pen>
-                                        </GeometryDrawing>
-                                    </DrawingBrush.Drawing>
-                                </DrawingBrush>
-                            </Canvas.Background>
-                        </Canvas>
-                    </Grid>
+                    <Border x:Name="ImageGrid" BorderBrush="Black" Height="512" Width="512" Margin="0,39,380,20" HorizontalAlignment="Center" BorderThickness="1">
+                        <Grid HorizontalAlignment="Center">
+                            <Label x:Name="PositionLabel" HorizontalContentAlignment="Right" VerticalContentAlignment="Bottom" Content="X: 0 Y: 0" Margin="0,-28,0,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="Auto"/>
+                            <Label x:Name="SelectedLabel" Content="" Margin="0,-28,0,0" HorizontalContentAlignment="Center" Height="28" VerticalAlignment="Top" HorizontalAlignment="Center" Width="Auto"/>
+                            <Image x:Name="SelectedImage" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
+                            <Canvas x:Name="ImageGridCanvas" MouseLeave="CanvasGrid_MouseUp" MouseDown="CanvasGrid_MouseDown" MouseUp="CanvasGrid_MouseUp" MouseMove="CanvasGrid_MouseMove" HorizontalAlignment="Left" Width="512">
+                                <Canvas.Background>
+                                    <DrawingBrush x:Name="GridBrush" TileMode="Tile" Viewport="0,0,16,16"
+                                                 ViewportUnits="Absolute">
+                                        <DrawingBrush.Drawing>
+                                            <GeometryDrawing>
+                                                <GeometryDrawing.Geometry>
+                                                    <RectangleGeometry Rect="0,0,8,8"/>
+                                                </GeometryDrawing.Geometry>
+                                                <GeometryDrawing.Pen>
+                                                    <Pen Brush="Gray" Thickness="0.5"/>
+                                                </GeometryDrawing.Pen>
+                                            </GeometryDrawing>
+                                        </DrawingBrush.Drawing>
+                                    </DrawingBrush>
+                                </Canvas.Background>
+                            </Canvas>
+                        </Grid>
+                    </Border>
                     <TreeView x:Name="EntryTreeView" HorizontalAlignment="Right" Width="185"/>
                     <DockPanel LastChildFill="False"  Width="512" Margin="0,0,380,5" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Center">
                         <DockPanel.Resources>
