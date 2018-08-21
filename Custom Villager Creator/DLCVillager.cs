@@ -105,7 +105,7 @@ namespace Custom_Villager_Creator
         [FieldOffset(0x19)] public ushort Unknown1;
         [FieldOffset(0x1B)] public ClothingCategory FavoriteClothingCategory;
         [FieldOffset(0x1C)] public ClothingCategory HatedClothingCategory;
-        [FieldOffset(0x1D)] public byte Tribe; // Deals with the villager's favorite or least favorite animal type (I think it uses the same enum as model type)
+        [FieldOffset(0x1D)] public ModelType Tribe; // Deals with the villager's favorite or least favorite animal type (I think it uses the same enum as model type)
         [FieldOffset(0x1E)] public byte Character; // Unknown
         [FieldOffset(0x1F)] public byte Constellation; // Zodiac sign
         [FieldOffset(0x20)] public byte Popular; // Popularity?
@@ -138,6 +138,8 @@ namespace Custom_Villager_Creator
 
             Header.CardId = byte.MaxValue;
             Header.Model = ModelType.Cat;
+            Header.HouseRoomBaseLayerInfoId = 0x1A0;
+            Header.HouseRoomSecondLayerInfoId = 0x1A1;
             TextureData = new byte[VillagerDatabase.GetImageDataSize(Header.Model)];
         }
 

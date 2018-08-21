@@ -5,9 +5,9 @@ namespace Custom_Villager_Creator
 {
     public static class VillagerDatabase
     {
-        internal static readonly Dictionary<string, Dictionary<string, Size>> VillagerTypeInfo = new Dictionary<string, Dictionary<string, Size>>
+        internal static readonly Dictionary<ModelType, Dictionary<string, Size>> VillagerTypeInfo = new Dictionary<ModelType, Dictionary<string, Size>>
         {
-            { "Cat", new Dictionary<string, Size>
+            { ModelType.Cat, new Dictionary<string, Size>
                 {
                     { "Eyes 1", new Size(32, 16) },
                     { "Eyes 2", new Size(32, 16) },
@@ -29,7 +29,7 @@ namespace Custom_Villager_Creator
                     { "Tail", new Size(16, 32) },
                 }
             },
-            { "Elephant", new Dictionary<string, Size>
+            { ModelType.Elephant, new Dictionary<string, Size>
                 {
                     { "Eyes 1", new Size(32, 16) },
                     { "Eyes 2", new Size(32, 16) },
@@ -53,7 +53,7 @@ namespace Custom_Villager_Creator
                     { "Feet", new Size(16, 16) },
                 }
             },
-            { "Sheep", new Dictionary<string, Size>
+            { ModelType.Sheep, new Dictionary<string, Size>
                 {
                     { "Eyes 1", new Size(32, 16) },
                     { "Eyes 2", new Size(32, 16) },
@@ -75,7 +75,30 @@ namespace Custom_Villager_Creator
                     { "Arms & Legs", new Size(16, 16) }
                 }
             },
-            { "Dog", new Dictionary<string, Size>
+            { ModelType.Bear, new Dictionary<string, Size> // Check if tail exists
+                {
+                    { "Eyes 1", new Size(32, 16) },
+                    { "Eyes 2", new Size(32, 16) },
+                    { "Eyes 3", new Size(32, 16) },
+                    { "Eyes 4", new Size(32, 16) },
+                    { "Eyes 5", new Size(32, 16) },
+                    { "Eyes 6", new Size(32, 16) },
+                    { "Eyes 7", new Size(32, 16) },
+                    { "Eyes 8", new Size(32, 16) },
+                    { "Mouth 1", new Size(32, 16) },
+                    { "Mouth 2", new Size(32, 16) },
+                    { "Mouth 3", new Size(32, 16) },
+                    { "Mouth 4", new Size(32, 16) },
+                    { "Mouth 5", new Size(32, 16) },
+                    { "Mouth 6", new Size(32, 16) },
+                    { "Head", new Size(32, 32) },
+                    { "Ears", new Size(16, 16) },
+                    { "Arms", new Size(16, 16) }, // Verify that Arms & Legs are in the correct order
+                    { "Legs", new Size(16, 16) },
+                    { "Body", new Size(16, 16) }
+                }
+            },
+            { ModelType.Dog, new Dictionary<string, Size>
                 {
                     { "Eyes 1", new Size(32, 16) },
                     { "Eyes 2", new Size(32, 16) },
@@ -98,7 +121,7 @@ namespace Custom_Villager_Creator
                     { "Feet", new Size(16, 16) }
                 }
             },
-            { "Squirrel", new Dictionary<string, Size>
+            { ModelType.Squirrel, new Dictionary<string, Size>
                 {
                     { "Eyes 1", new Size(32, 16) },
                     { "Eyes 2", new Size(32, 16) },
@@ -121,7 +144,30 @@ namespace Custom_Villager_Creator
                     { "Tail", new Size(16, 32) }
                 }
             },
-            { "Duck", new Dictionary<string, Size>
+            { ModelType.Rabbit, new Dictionary<string, Size> // Check this (Use Tiffany for best results)
+                {
+                    { "Eyes 1", new Size(32, 16) },
+                    { "Eyes 2", new Size(32, 16) },
+                    { "Eyes 3", new Size(32, 16) },
+                    { "Eyes 4", new Size(32, 16) },
+                    { "Eyes 5", new Size(32, 16) },
+                    { "Eyes 6", new Size(32, 16) },
+                    { "Eyes 7", new Size(32, 16) },
+                    { "Eyes 8", new Size(32, 16) },
+                    { "Mouth 1", new Size(32, 16) },
+                    { "Mouth 2", new Size(32, 16) },
+                    { "Mouth 3", new Size(32, 16) },
+                    { "Mouth 4", new Size(32, 16) },
+                    { "Mouth 5", new Size(32, 16) },
+                    { "Mouth 6", new Size(32, 16) },
+                    { "Ears (Front)", new Size(16, 16) },
+                    { "Head", new Size(32, 32) },
+                    { "Ears (Back)", new Size(16, 16) },
+                    { "Arms & Tail", new Size(16, 16) }, // Check this (I'm not sure if Arms & Tail are in the same texture...)
+                    { "Legs", new Size(16, 16) }
+                }
+            },
+            { ModelType.Duck, new Dictionary<string, Size>
                 {
                     { "Eyes 1", new Size(32, 16) },
                     { "Eyes 2", new Size(32, 16) },
@@ -145,7 +191,30 @@ namespace Custom_Villager_Creator
                     { "Legs", new Size(16, 16) },
                 }
             },
-            { "Wolf", new Dictionary<string, Size>
+            { ModelType.Hippo, new Dictionary<string, Size> //
+                {
+                    { "Eyes 1", new Size(32, 16) },
+                    { "Eyes 2", new Size(32, 16) },
+                    { "Eyes 3", new Size(32, 16) },
+                    { "Eyes 4", new Size(32, 16) },
+                    { "Eyes 5", new Size(32, 16) },
+                    { "Eyes 6", new Size(32, 16) },
+                    { "Eyes 7", new Size(32, 16) },
+                    { "Eyes 8", new Size(32, 16) },
+                    { "Mouth (Bottom)", new Size(16, 16) },
+                    { "Mouth (Inner)", new Size(16, 16) },
+                    { "Tusks", new Size(16, 8) },
+                    { "Snout (Top)", new Size(16, 32) }, // Check this
+                    { "Head & Mouth (Top)", new Size(16, 32) },
+                    { "Neck", new Size(16, 8) },
+                    { "Ears (Inner)", new Size(16, 8) },
+                    { "Ears (Back)", new Size(16, 8) }, // Check this
+                    { "Nostrils", new Size(16, 8) },
+                    { "Arms & Legs", new Size(16, 16) },
+                    { "Tail", new Size(16, 8) }
+                }
+            },
+            { ModelType.Wolf, new Dictionary<string, Size>
                 {
                     { "Eyes 1", new Size(32, 16) },
                     { "Eyes 2", new Size(32, 16) },
@@ -162,7 +231,208 @@ namespace Custom_Villager_Creator
                     { "Arms & Legs", new Size(16, 16) }
                 }
             },
-            { "Tiger", new Dictionary<string, Size>
+            { ModelType.Mouse, new Dictionary<string, Size>
+                {
+                    { "Eyes 1", new Size(32, 16) },
+                    { "Eyes 2", new Size(32, 16) },
+                    { "Eyes 3", new Size(32, 16) },
+                    { "Eyes 4", new Size(32, 16) },
+                    { "Eyes 5", new Size(32, 16) },
+                    { "Eyes 6", new Size(32, 16) },
+                    { "Eyes 7", new Size(32, 16) },
+                    { "Eyes 8", new Size(32, 16) },
+                    { "Mouth 1", new Size(32, 16) },
+                    { "Mouth 2", new Size(32, 16) },
+                    { "Mouth 3", new Size(32, 16) },
+                    { "Mouth 4", new Size(32, 16) },
+                    { "Mouth 5", new Size(32, 16) },
+                    { "Mouth 6", new Size(32, 16) },
+                    { "Nose (Lower)", new Size(16, 8) },
+                    { "Nose (Upper)", new Size(16, 8) },
+                    { "Ears (Front)", new Size(16, 16) },
+                    { "Head", new Size(32, 32) },
+                    { "Ears (Back)", new Size(16, 16) },
+                    { "Arms & Legs", new Size(16, 8) },
+                    { "Tail", new Size(16, 8) }
+                }
+            },
+            { ModelType.Pig, new Dictionary<string, Size>
+                {
+                    { "Eyes 1", new Size(32, 16) },
+                    { "Eyes 2", new Size(32, 16) },
+                    { "Eyes 3", new Size(32, 16) },
+                    { "Eyes 4", new Size(32, 16) },
+                    { "Eyes 5", new Size(32, 16) },
+                    { "Eyes 6", new Size(32, 16) },
+                    { "Eyes 7", new Size(32, 16) },
+                    { "Eyes 8", new Size(32, 16) },
+                    { "Mouth 1", new Size(32, 16) },
+                    { "Mouth 2", new Size(32, 16) },
+                    { "Mouth 3", new Size(32, 16) },
+                    { "Mouth 4", new Size(32, 16) },
+                    { "Mouth 5", new Size(32, 16) },
+                    { "Mouth 6", new Size(32, 16) },
+                    { "Head", new Size(32, 32) },
+                    { "Snout", new Size(16, 16) },
+                    { "Arms & Legs", new Size(16, 16) },
+                    { "Tail", new Size(32, 8) }
+                }
+            },
+            { ModelType.Chicken, new Dictionary<string, Size>
+                {
+                    { "Eyes 1", new Size(32, 16) },
+                    { "Eyes 2", new Size(32, 16) },
+                    { "Eyes 3", new Size(32, 16) },
+                    { "Eyes 4", new Size(32, 16) },
+                    { "Eyes 5", new Size(32, 16) },
+                    { "Eyes 6", new Size(32, 16) },
+                    { "Eyes 7", new Size(32, 16) },
+                    { "Eyes 8", new Size(32, 16) },
+                    { "Beak", new Size(16, 8) },
+                    { "Comb", new Size(16, 8) },
+                    { "Head", new Size(32, 32) },
+                    { "Chin", new Size(32, 16) },
+                    { "Wings", new Size(16, 8) },
+                    { "Tail", new Size(16, 24) },
+                    { "Legs & Feet", new Size(16, 8) }
+                }
+            },
+            { ModelType.Bull, new Dictionary<string, Size> //
+                {
+                    { "Eyes 1", new Size(32, 16) },
+                    { "Eyes 2", new Size(32, 16) },
+                    { "Eyes 3", new Size(32, 16) },
+                    { "Eyes 4", new Size(32, 16) },
+                    { "Eyes 5", new Size(32, 16) },
+                    { "Eyes 6", new Size(32, 16) },
+                    { "Eyes 7", new Size(32, 16) },
+                    { "Eyes 8", new Size(32, 16) },
+                    { "Mouth 1", new Size(32, 16) },
+                    { "Mouth 2", new Size(32, 16) },
+                    { "Mouth 3", new Size(32, 16) },
+                    { "Mouth 4", new Size(32, 16) },
+                    { "Mouth 5", new Size(32, 16) },
+                    { "Mouth 6", new Size(32, 16) },
+                    { "Horns (Front)", new Size(16, 8) }, // Check that the horns are right
+                    { "Horns (Back)", new Size(16, 8) },
+                    { "Ears", new Size(16, 16) },
+                    { "Head", new Size(16, 32) },
+                    { "Nose", new Size(32, 16) },
+                    { "Arms & Legs", new Size(16, 16) },
+                    { "Tail", new Size(32, 8) }
+                }
+            },
+            { ModelType.Cow, new Dictionary<string, Size>
+                {
+                    { "Eyes 1", new Size(32, 16) },
+                    { "Eyes 2", new Size(32, 16) },
+                    { "Eyes 3", new Size(32, 16) },
+                    { "Eyes 4", new Size(32, 16) },
+                    { "Eyes 5", new Size(32, 16) },
+                    { "Eyes 6", new Size(32, 16) },
+                    { "Eyes 7", new Size(32, 16) },
+                    { "Eyes 8", new Size(32, 16) },
+                    { "Mouth 1", new Size(32, 16) },
+                    { "Mouth 2", new Size(32, 16) },
+                    { "Mouth 3", new Size(32, 16) },
+                    { "Mouth 4", new Size(32, 16) },
+                    { "Mouth 5", new Size(32, 16) },
+                    { "Mouth 6", new Size(32, 16) },
+                    { "Horns", new Size(16, 8) },
+                    { "Head", new Size(16, 48) },
+                    { "Ears", new Size(16, 16) },
+                    { "Nose", new Size(32, 16) },
+                    { "Arms & Legs", new Size(16, 8) },
+                    { "Tail", new Size(32, 8) }
+                }
+            },
+            { ModelType.Bird, new Dictionary<string, Size>
+                {
+                    { "Eyes 1", new Size(32, 16) },
+                    { "Eyes 2", new Size(32, 16) },
+                    { "Eyes 3", new Size(32, 16) },
+                    { "Eyes 4", new Size(32, 16) },
+                    { "Eyes 5", new Size(32, 16) },
+                    { "Eyes 6", new Size(32, 16) },
+                    { "Eyes 7", new Size(32, 16) },
+                    { "Eyes 8", new Size(32, 16) },
+                    { "Beak", new Size(16, 8) },
+                    { "Head", new Size(32, 32) },
+                    { "Chin", new Size(32, 16) },
+                    { "Wings", new Size(16, 8) },
+                    { "Tail", new Size(16, 24) },
+                    { "Legs & Feet", new Size(16, 8) },
+                    { "Body", new Size(32, 8) }
+                }
+            },
+            { ModelType.Frog, new Dictionary<string, Size> //
+                {
+                    { "Eyes 1", new Size(32, 16) },
+                    { "Eyes 2", new Size(32, 16) },
+                    { "Eyes 3", new Size(32, 16) },
+                    { "Eyes 4", new Size(32, 16) },
+                    { "Eyes 5", new Size(32, 16) },
+                    { "Eyes 6", new Size(32, 16) },
+                    { "Eyes 7", new Size(32, 16) },
+                    { "Eyes 8", new Size(32, 16) },
+                    { "Mouth 1", new Size(32, 16) },
+                    { "Mouth 2", new Size(32, 16) },
+                    { "Mouth 3", new Size(32, 16) },
+                    { "Mouth 4", new Size(32, 16) },
+                    { "Mouth 5", new Size(32, 16) },
+                    { "Mouth 6", new Size(32, 16) },
+                    { "Chin", new Size(32, 8) },
+                    { "Head", new Size(32, 40) },
+                    { "Arms", new Size(16, 16) }, // Verify Arms & Legs
+                    { "Legs", new Size(16, 16) }
+                }
+            },
+            { ModelType.Alligator, new Dictionary<string, Size> // Check Arms & Legs and Tail (I think that it's just Arms and Legs, and tail is part of body)
+                {
+                    { "Eyes 1", new Size(32, 16) },
+                    { "Eyes 2", new Size(32, 16) },
+                    { "Eyes 3", new Size(32, 16) },
+                    { "Eyes 4", new Size(32, 16) },
+                    { "Eyes 5", new Size(32, 16) },
+                    { "Eyes 6", new Size(32, 16) },
+                    { "Eyes 7", new Size(32, 16) },
+                    { "Eyes 8", new Size(32, 16) },
+                    { "Teeth", new Size(16, 8) },
+                    { "Snout (Upper)", new Size(32, 16) },
+                    { "Mouth", new Size(16, 8) },
+                    { "Head", new Size(16, 48) },
+                    { "Snout (Lower)", new Size(32, 16) },
+                    { "Arms & Legs", new Size(16, 8) },
+                    { "Tail", new Size(16, 8) },
+                    { "Body", new Size(32, 8) }
+                }
+            },
+            { ModelType.Goat, new Dictionary<string, Size>
+                {
+                    { "Eyes 1", new Size(32, 16) },
+                    { "Eyes 2", new Size(32, 16) },
+                    { "Eyes 3", new Size(32, 16) },
+                    { "Eyes 4", new Size(32, 16) },
+                    { "Eyes 5", new Size(32, 16) },
+                    { "Eyes 6", new Size(32, 16) },
+                    { "Eyes 7", new Size(32, 16) },
+                    { "Eyes 8", new Size(32, 16) },
+                    { "Mouth 1", new Size(32, 16) },
+                    { "Mouth 2", new Size(32, 16) },
+                    { "Mouth 3", new Size(32, 16) },
+                    { "Mouth 4", new Size(32, 16) },
+                    { "Mouth 5", new Size(32, 16) },
+                    { "Mouth 6", new Size(32, 16) },
+                    { "Beard", new Size(8, 8) },
+                    { "Tail", new Size(8, 8) },
+                    { "Head", new Size(32, 40) },
+                    { "Hair", new Size(32, 8) },
+                    { "Ears", new Size(16, 8) },
+                    { "Horns", new Size(16, 8) },
+                    { "Arms & Legs", new Size(16, 8) }
+                }
+            },
+            { ModelType.Tiger, new Dictionary<string, Size>
                 {
                     { "Eyes 1", new Size(32, 16) },
                     { "Eyes 2", new Size(32, 16) },
@@ -181,7 +451,70 @@ namespace Custom_Villager_Creator
                     { "Tail", new Size(16, 16) }
                 }
             },
-            { "Octopus", new Dictionary<string, Size>
+            { ModelType.Anteater, new Dictionary<string, Size> //
+                {
+                    { "Eyes 1", new Size(32, 16) },
+                    { "Eyes 2", new Size(32, 16) },
+                    { "Eyes 3", new Size(32, 16) },
+                    { "Eyes 4", new Size(32, 16) },
+                    { "Eyes 5", new Size(32, 16) },
+                    { "Eyes 6", new Size(32, 16) },
+                    { "Eyes 7", new Size(32, 16) },
+                    { "Eyes 8", new Size(32, 16) },
+                    { "Nose", new Size(16, 16) }, // Verify nose & muzzle positions
+                    { "Muzzle", new Size(16, 8) },
+                    { "Ears", new Size(16, 8) },
+                    { "Neck", new Size(48, 8) },
+                    { "Head", new Size(32, 24) },
+                    { "Arms", new Size(16, 16) },
+                    { "Tail", new Size(16, 24) },
+                    { "Legs", new Size(16, 16) }
+                }
+            },
+            { ModelType.Koala, new Dictionary<string, Size>
+                {
+                    { "Eyes 1", new Size(32, 16) },
+                    { "Eyes 2", new Size(32, 16) },
+                    { "Eyes 3", new Size(32, 16) },
+                    { "Eyes 4", new Size(32, 16) },
+                    { "Eyes 5", new Size(32, 16) },
+                    { "Eyes 6", new Size(32, 16) },
+                    { "Eyes 7", new Size(32, 16) },
+                    { "Eyes 8", new Size(32, 16) },
+                    { "Mouth 1", new Size(32, 16) },
+                    { "Mouth 2", new Size(32, 16) },
+                    { "Mouth 3", new Size(32, 16) },
+                    { "Mouth 4", new Size(32, 16) },
+                    { "Mouth 5", new Size(32, 16) },
+                    { "Mouth 6", new Size(32, 16) },
+                    { "Head (Top)", new Size(32, 8) },
+                    { "Head (Back)", new Size(32, 40) },
+                    { "Ears", new Size(32, 16) },
+                    { "Arms & Legs", new Size(16, 16) }
+                }
+            },
+            { ModelType.Horse, new Dictionary<string, Size>
+                {
+                    { "Eyes 1", new Size(32, 16) },
+                    { "Eyes 2", new Size(32, 16) },
+                    { "Eyes 3", new Size(32, 16) },
+                    { "Eyes 4", new Size(32, 16) },
+                    { "Eyes 5", new Size(32, 16) },
+                    { "Eyes 6", new Size(32, 16) },
+                    { "Eyes 7", new Size(32, 16) },
+                    { "Eyes 8", new Size(32, 16) },
+                    { "Mouth (Lower)", new Size(16, 16) },
+                    { "Mouth (Upper)", new Size(16, 24) },
+                    { "Head (Top)", new Size(32, 8) },
+                    { "Muzzle", new Size(32, 8) },
+                    { "Head (Back)", new Size(32, 32) },
+                    { "Ears", new Size(16, 8) },
+                    { "Neck", new Size(16, 16) },
+                    { "Arms & Legs", new Size(16, 8) },
+                    { "Tail", new Size(16, 8) }
+                }
+            },
+            { ModelType.Octopus, new Dictionary<string, Size>
                 {
                     { "Eyes 1", new Size(32, 16) },
                     { "Eyes 2", new Size(32, 16) },
@@ -198,7 +531,7 @@ namespace Custom_Villager_Creator
                     { "Legs", new Size(16, 16) }
                 }
             },
-            { "Lion", new Dictionary<string, Size>
+            { ModelType.Lion, new Dictionary<string, Size>
                 {
                     { "Eyes 1", new Size(32, 16) },
                     { "Eyes 2", new Size(32, 16) },
@@ -223,7 +556,7 @@ namespace Custom_Villager_Creator
                     { "Tail", new Size(32, 8) }
                 }
             },
-            { "Cub", new Dictionary<string, Size> // 
+            { ModelType.Cub, new Dictionary<string, Size> // 
                 {
                     { "Eyes 1", new Size(32, 16) },
                     { "Eyes 2", new Size(32, 16) },
@@ -247,7 +580,61 @@ namespace Custom_Villager_Creator
                     { "Feet", new Size(16, 16) }
                 }
             },
-            { "Ostrich", new Dictionary<string, Size>
+            { ModelType.Rhino, new Dictionary<string, Size> //
+                {
+                    { "Eyes 1", new Size(32, 16) },
+                    { "Eyes 2", new Size(32, 16) },
+                    { "Eyes 3", new Size(32, 16) },
+                    { "Eyes 4", new Size(32, 16) },
+                    { "Eyes 5", new Size(32, 16) },
+                    { "Eyes 6", new Size(32, 16) },
+                    { "Eyes 7", new Size(32, 16) },
+                    { "Eyes 8", new Size(32, 16) },
+                    { "Mouth 1", new Size(32, 16) },
+                    { "Mouth 2", new Size(32, 16) },
+                    { "Mouth 3", new Size(32, 16) },
+                    { "Mouth 4", new Size(32, 16) },
+                    { "Mouth 5", new Size(32, 16) },
+                    { "Mouth 6", new Size(32, 16) },
+                    { "Horn (Head)", new Size(16, 8) }, // Check this (It's 100% not right)
+                    { "Mouth (Inner)", new Size(16, 8) },
+                    { "Horn (Small)", new Size(16, 8) },
+                    { "Horn (Main)", new Size(16, 16) },
+                    { "Head (Back)", new Size(32, 16) },
+                    { "Head (Top)", new Size(32, 8) },
+                    { "Ears (Inner)", new Size(16, 8) },
+                    { "Ears (Back)", new Size(16, 8) },
+                    { "Mouth (Bottom)", new Size(16, 8) }, // Check this too
+                    { "Arms & Legs", new Size(16, 8) },
+                    { "Tail", new Size(16, 8) }
+                }
+            },
+            { ModelType.Gorilla, new Dictionary<string, Size>
+                {
+                    { "Eyes 1", new Size(32, 16) },
+                    { "Eyes 2", new Size(32, 16) },
+                    { "Eyes 3", new Size(32, 16) },
+                    { "Eyes 4", new Size(32, 16) },
+                    { "Eyes 5", new Size(32, 16) },
+                    { "Eyes 6", new Size(32, 16) },
+                    { "Eyes 7", new Size(32, 16) },
+                    { "Eyes 8", new Size(32, 16) },
+                    { "Mouth 1", new Size(32, 16) },
+                    { "Mouth 2", new Size(32, 16) },
+                    { "Mouth 3", new Size(32, 16) },
+                    { "Mouth 4", new Size(32, 16) },
+                    { "Mouth 5", new Size(32, 16) },
+                    { "Mouth 6", new Size(32, 16) },
+                    { "Mouth (Inside)", new Size(16, 8) },
+                    { "Mouth (Lower)", new Size(16, 8) },
+                    { "Head", new Size(32, 32) },
+                    { "Ears", new Size(16, 8) },
+                    { "Arms & Legs", new Size(16, 16) },
+                    { "Body (Front)", new Size(16, 16) },
+                    { "Body (Back)", new Size(16, 8) }
+                }
+            },
+            { ModelType.Ostrich, new Dictionary<string, Size>
                 {
                     { "Eyes 1", new Size(32, 16) },
                     { "Eyes 2", new Size(32, 16) },
@@ -267,28 +654,49 @@ namespace Custom_Villager_Creator
                     { "Body", new Size(16, 8) }
                 }
             },
-            { "Eagle", new Dictionary<string, Size>
-            {
-                { "Eyes 1", new Size(32, 16) },
-                { "Eyes 2", new Size(32, 16) },
-                { "Eyes 3", new Size(32, 16) },
-                { "Eyes 4", new Size(32, 16) },
-                { "Eyes 5", new Size(32, 16) },
-                { "Eyes 6", new Size(32, 16) },
-                { "Eyes 7", new Size(32, 16) },
-                { "Eyes 8", new Size(32, 16) },
-                { "Inner Beak", new Size(16, 8) },
-                { "Head", new Size(16, 32) },
-                { "Neck", new Size(48, 16) },
-                { "Outer Beak", new Size(16, 16) },
-                { "Arms", new Size(16, 8) },
-                { "Tail", new Size(16, 24) },
-                { "Feet", new Size(16, 8) },
-                { "Legs", new Size(16, 8) },
-                { "Body", new Size(16, 8) }
-            }
-        },
-            { "Penguin", new Dictionary<string, Size>
+            { ModelType.Kangaroo, new Dictionary<string, Size>
+                {
+                    { "Eyes 1", new Size(32, 16) },
+                    { "Eyes 2", new Size(32, 16) },
+                    { "Eyes 3", new Size(32, 16) },
+                    { "Eyes 4", new Size(32, 16) },
+                    { "Eyes 5", new Size(32, 16) },
+                    { "Eyes 6", new Size(32, 16) },
+                    { "Eyes 7", new Size(32, 16) },
+                    { "Eyes 8", new Size(32, 16) },
+                    { "Mouth", new Size(32, 8) },
+                    { "Head", new Size(16, 32) },
+                    { "Ears (Main)", new Size(16, 8) },
+                    { "Snout", new Size(32, 16) },
+                    { "Arms", new Size(16, 8) },
+                    { "Ears (Joey)", new Size(16, 8) },
+                    { "Tail", new Size(16, 8) },
+                    { "Feet", new Size(32, 8) },
+                    { "Pouch", new Size(16, 8) }
+                }
+            },
+            { ModelType.Eagle, new Dictionary<string, Size>
+                {
+                    { "Eyes 1", new Size(32, 16) },
+                    { "Eyes 2", new Size(32, 16) },
+                    { "Eyes 3", new Size(32, 16) },
+                    { "Eyes 4", new Size(32, 16) },
+                    { "Eyes 5", new Size(32, 16) },
+                    { "Eyes 6", new Size(32, 16) },
+                    { "Eyes 7", new Size(32, 16) },
+                    { "Eyes 8", new Size(32, 16) },
+                    { "Inner Beak", new Size(16, 8) },
+                    { "Head", new Size(16, 32) },
+                    { "Neck", new Size(48, 16) },
+                    { "Outer Beak", new Size(16, 16) },
+                    { "Arms", new Size(16, 8) },
+                    { "Tail", new Size(16, 24) },
+                    { "Feet", new Size(16, 8) },
+                    { "Legs", new Size(16, 8) },
+                    { "Body", new Size(16, 8) }
+                }
+            },
+            { ModelType.Penguin, new Dictionary<string, Size>
                 {
                     { "Eyes 1", new Size(32, 16) },
                     { "Eyes 2", new Size(32, 16) },
@@ -317,16 +725,14 @@ namespace Custom_Villager_Creator
 
         public static Dictionary<string, Size> GetImageData(ModelType model)
         {
-            var modelString = model.ToString();
-            return VillagerTypeInfo.ContainsKey(modelString) ? VillagerTypeInfo[modelString] : null;
+            return VillagerTypeInfo.ContainsKey(model) ? VillagerTypeInfo[model] : null;
         }
 
         public static int GetImageDataSize(ModelType model)
         {
-            var modelString = model.ToString();
             var size = 0;
-            if (!VillagerTypeInfo.ContainsKey(modelString)) return size;
-            foreach (var s in VillagerTypeInfo[modelString])
+            if (!VillagerTypeInfo.ContainsKey(model)) return size;
+            foreach (var s in VillagerTypeInfo[model])
             {
                 size += (s.Value.Width * s.Value.Height) / 2;
             }

@@ -30,7 +30,6 @@
                         <Label x:Name="PositionLabel" HorizontalContentAlignment="Right" VerticalContentAlignment="Bottom" Content="X: 0 Y: 0" Margin="0,-28,0,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="Auto"/>
                         <Label x:Name="SelectedLabel" Content="" Margin="0,-28,0,0" HorizontalContentAlignment="Center" Height="28" VerticalAlignment="Top" HorizontalAlignment="Center" Width="Auto"/>
                         <Image x:Name="SelectedImage" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
-                        <CheckBox x:Name="GridEnabledCheckBox" Content="Grid Enabled" Margin ="0,-22,0,0" IsChecked="True" Checked="GridEnabledCheckBoxCheckChanged" Unchecked="GridEnabledCheckBoxCheckChanged"/>
                         <Canvas x:Name="ImageGridCanvas" MouseLeave="CanvasGrid_MouseUp" MouseDown="CanvasGrid_MouseDown" MouseUp="CanvasGrid_MouseUp" MouseMove="CanvasGrid_MouseMove" HorizontalAlignment="Left" Width="512">
                             <Canvas.Background>
                                 <DrawingBrush x:Name="GridBrush" TileMode="Tile" Viewport="0,0,16,16"
@@ -126,6 +125,7 @@
                     <TextBox x:Name="TransparencyBox" IsEnabled="False" HorizontalAlignment="Right" Height="18" Margin="0,0,215,125" TextWrapping="Wrap" Text="0" VerticalAlignment="Bottom" MaxLength="3" Width="30" TextChanged="SliderBox_TextChanged"/>
                     <Label x:Name="Label2Copy" Content="ARGB8:" HorizontalAlignment="Right" Margin="0,0,306,68" VerticalAlignment="Bottom"/>
                     <TextBox x:Name="Rgba8Box" IsEnabled="False" HorizontalAlignment="Right" Height="18" Margin="0,0,232,72" TextWrapping="Wrap" Text="FFFFFFFF" VerticalAlignment="Bottom" Width="69" MaxLength="8" TextChanged="Rgba8Box_PreviewTextInput"/>
+                    <CheckBox x:Name="GridEnabledCheckBox" Content="Grid Enabled" Width="90" Height="18" Margin="0,4,190,0" VerticalAlignment="Top" HorizontalAlignment="Right" IsChecked="True" Checked="GridEnabledCheckBoxCheckChanged" Unchecked="GridEnabledCheckBoxCheckChanged"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Villager Setttings">

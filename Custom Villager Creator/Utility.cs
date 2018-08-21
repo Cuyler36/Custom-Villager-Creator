@@ -122,29 +122,28 @@ namespace Custom_Villager_Creator
                     return null;
                 }
 
-                if (dataSize == 3 || dataSize == 4)
+                if (dataSize != 3 && dataSize != 4) return new int[0];
+                var imageData = bitmapBuffer.Skip(BitConverter.ToInt32(bitmapBuffer.Skip(0xA).Take(4).ToArray(), 0)).ToArray();
+                var pixelData = new int[imageData.Length / dataSize];
+
+                for (var i = 0; i < pixelData.Length; i++)
                 {
-                    var imageData = bitmapBuffer.Skip(BitConverter.ToInt32(bitmapBuffer.Skip(0xA).Take(4).ToArray(), 0)).ToArray();
-                    var pixelData = new int[imageData.Length / dataSize];
-
-                    for (var i = 0; i < pixelData.Length; i++)
-                    {
-                        var index = i * dataSize;
-                        pixelData[i] = (imageData[index + 3] << 24) | (imageData[index + 2] << 16)
-                                            | (imageData[index + 1] << 8) | imageData[index];
-                    }
-
-                    // Flip Vertically
-                    Array.Reverse(pixelData);
-
-                    // Flip Horizontally
-                    for (int i = 0; i < pixelData.Length; i += width)
-                        Array.Reverse(pixelData, i, width);
-
-                    return pixelData;
+                    var index = i * dataSize;
+                    pixelData[i] = (imageData[index + 3] << 24) | (imageData[index + 2] << 16)
+                                                                | (imageData[index + 1] << 8) | imageData[index];
                 }
 
-                return new int[0];
+                // Flip Vertically
+                Array.Reverse(pixelData);
+
+                // Flip Horizontally
+                for (var i = 0; i < pixelData.Length; i += width)
+                {
+                    Array.Reverse(pixelData, i, width);
+                }
+
+                return pixelData;
+
             }
             catch
             {

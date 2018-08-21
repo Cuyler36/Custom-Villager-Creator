@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -54,6 +55,11 @@ namespace Custom_Villager_Creator
         public MainWindow()
         {
             InitializeComponent();
+
+            // Supress silly WPF warnings
+            #if DEBUG
+            PresentationTraceSources.DataBindingSource.Switch.Level = SourceLevels.Critical;
+            #endif
 
             // Set up combobox items
             foreach (var shirt in Static.ShirtNames)
@@ -701,6 +707,9 @@ namespace Custom_Villager_Creator
             HatedClothComboBox.SelectedIndex = (int) villager.Header.HatedClothingCategory;
             HouseIndexComboBox.SelectedIndex = villager.Header.HouseRoomBaseLayerInfoId - 0x1A0;
             HouseSecondIndexComboBox.SelectedIndex = villager.Header.HouseRoomSecondLayerInfoId - 0x1A0;
+
+            // Debug
+            Console.WriteLine($"Species: {villager.Header.Model}\nTribe: {villager.Header.Tribe}\n\n");
         }
 
         private void SetTextureEditorInfo()
