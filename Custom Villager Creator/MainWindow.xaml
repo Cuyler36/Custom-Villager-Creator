@@ -130,7 +130,7 @@
                     <CheckBox x:Name="GridEnabledCheckBox" Content="Grid Enabled" Width="90" Height="18" Margin="0,4,190,0" VerticalAlignment="Top" HorizontalAlignment="Right" IsChecked="True" Checked="GridEnabledCheckBoxCheckChanged" Unchecked="GridEnabledCheckBoxCheckChanged"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="Villager Setttings">
+            <TabItem Header="Villager Settings">
                 <Grid>
                     <StackPanel Orientation="Vertical">
                         <StackPanel Height="30" VerticalAlignment="Top" Orientation="Horizontal">
@@ -180,7 +180,7 @@
                         </StackPanel>
                         <StackPanel Height="30" VerticalAlignment="Top" Orientation="Horizontal">
                             <Label Content="Personality:" VerticalAlignment="Center"/>
-                            <ComboBox x:Name="PersonalityComboBox" SelectedIndex="0" Width="80" VerticalAlignment="Center">
+                            <ComboBox x:Name="PersonalityComboBox" SelectedIndex="0" Width="80" VerticalAlignment="Center" SelectionChanged="PersonalityComboBox_SelectionChanged">
                                 <ComboBoxItem Content="Normal♀"/>
                                 <ComboBoxItem Content="Peppy♀"/>
                                 <ComboBoxItem Content="Lazy♂"/>
@@ -234,10 +234,6 @@
                             <ComboBox x:Name="UmbrellaComboBox" SelectedIndex="0" Width="120" VerticalAlignment="Center"/>
                         </StackPanel>
                         <StackPanel Height="30" VerticalAlignment="Top" Orientation="Horizontal">
-                            <Label Content="Zodiac Sign:" VerticalAlignment="Center"/>
-                            <ComboBox x:Name="ZodiacSignComboBox" SelectedIndex="0" Width="100" VerticalAlignment="Center"/>
-                        </StackPanel>
-                        <StackPanel Height="30" VerticalAlignment="Top" Orientation="Horizontal">
                             <Label Content="Favorite Clothing Category:" VerticalAlignment="Center"/>
                             <ComboBox x:Name="FavoriteClothComboBox" SelectedIndex="0" Width="100" VerticalAlignment="Center"/>
                         </StackPanel>
@@ -255,6 +251,12 @@
                         </StackPanel>
                     </StackPanel>
                     <Image x:Name="HousePreviewImage" HorizontalAlignment="Left" VerticalAlignment="Top" Height="32" Width="32" Margin="180, 134, 0, 0"/>
+                    <GroupBox x:Name="GbaGroupBox" Header="GBA Minigame Settings" Width="200" HorizontalAlignment="Right">
+                        <StackPanel Height="30" VerticalAlignment="Top" Orientation="Horizontal">
+                            <Label Content="Zodiac Sign:" VerticalAlignment="Center" Margin="0,2"/>
+                            <ComboBox x:Name="ZodiacSignComboBox" SelectedIndex="0" Width="100" VerticalAlignment="Center" Margin="0,4"/>
+                        </StackPanel>
+                    </GroupBox>
                 </Grid>
             </TabItem>
         </TabControl>

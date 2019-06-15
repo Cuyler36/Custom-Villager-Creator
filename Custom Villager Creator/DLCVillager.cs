@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 
 namespace Custom_Villager_Creator
@@ -98,11 +101,11 @@ namespace Custom_Villager_Creator
         [FieldOffset(0x10)] public HousePalette HousePalette;
         [FieldOffset(0x11)] public byte WallpaperId;
         [FieldOffset(0x12)] public byte CarpetId;
-        [FieldOffset(0x13)] public ushort HouseRoomBaseLayerInfoId;
-        [FieldOffset(0x15)] public ushort HouseRoomSecondLayerInfoId;
+        [FieldOffset(0x13), Endianness(ByteOrder.BigEndian)] public ushort HouseRoomBaseLayerInfoId;
+        [FieldOffset(0x15), Endianness(ByteOrder.BigEndian)] public ushort HouseRoomSecondLayerInfoId;
         [FieldOffset(0x17)] public byte UmbrellaId;
         [FieldOffset(0x18)] public byte SongId;
-        [FieldOffset(0x19)] public ushort Unknown1;
+        [FieldOffset(0x19), Endianness(ByteOrder.BigEndian)] public ushort Unknown1;
         [FieldOffset(0x1B)] public ClothingCategory FavoriteClothingCategory;
         [FieldOffset(0x1C)] public ClothingCategory HatedClothingCategory;
         [FieldOffset(0x1D)] public ModelType Tribe; // Deals with the villager's favorite or least favorite animal type (I think it uses the same enum as model type)
@@ -116,7 +119,8 @@ namespace Custom_Villager_Creator
     public class DLCVillager
     {
         public DLCVillagerHeader Header;
-        public byte[] UnknownTextureData = new byte[0x820]; // 0x820 bytes (might be the GBA texture?)
+        public byte[] GBATextureData = new byte[0x800];
+        public ushort[] GBAPalette = new ushort[16];
         public ushort[] Palette = new ushort[16]; // 16 RGB5A3 palette
         public byte[] TextureData; // varying length texture data
 
@@ -145,32 +149,71 @@ namespace Custom_Villager_Creator
 
         public DLCVillager(Stream villagerFile)
         {
-            Header = StructReader.ReadStruct<DLCVillagerHeader>(villagerFile);
-            Header.HouseRoomBaseLayerInfoId = Header.HouseRoomBaseLayerInfoId.Reverse();
-            Header.HouseRoomSecondLayerInfoId = Header.HouseRoomSecondLayerInfoId.Reverse();
-
-            if (Header.HouseRoomBaseLayerInfoId < 0x1A0)
+            using (var reader = new BinaryReader(villagerFile))
             {
-                Header.HouseRoomBaseLayerInfoId = 0x1A0;
-            }
+                Header = StructReader.ReadStruct<DLCVillagerHeader>(villagerFile);
+                //Header.HouseRoomBaseLayerInfoId = Header.HouseRoomBaseLayerInfoId.Reverse();
+                //Header.HouseRoomSecondLayerInfoId = Header.HouseRoomSecondLayerInfoId.Reverse();
 
-            if (Header.HouseRoomSecondLayerInfoId < 0x1A0)
-            {
-                Header.HouseRoomSecondLayerInfoId = 0x1A0;
-            }
+                if (Header.HouseRoomBaseLayerInfoId < 0x1A0)
+                {
+                    Header.HouseRoomBaseLayerInfoId = 0x1A0;
+                }
 
-            Header.Unknown1 = Header.Unknown1.Reverse(); // Swap endianness
-            villagerFile.Seek(0x25, SeekOrigin.Begin);
-            villagerFile.Read(UnknownTextureData, 0, 0x820);
-            villagerFile.Seek(0x845, SeekOrigin.Begin);
-            for (var i = 0; i < 16; i++)
-            {
-                Palette[i] = (ushort)(villagerFile.ReadByte() << 8 | villagerFile.ReadByte());
-            }
+                if (Header.HouseRoomSecondLayerInfoId < 0x1A0)
+                {
+                    Header.HouseRoomSecondLayerInfoId = 0x1A0;
+                }
 
-            TextureData = new byte[villagerFile.Length - 0x865];
-            villagerFile.Seek(0x865, SeekOrigin.Begin);
-            villagerFile.Read(TextureData, 0, TextureData.Length);
+                //Header.Unknown1 = Header.Unknown1.Reverse(); // Swap endianness
+                villagerFile.Seek(0x25, SeekOrigin.Begin);
+                villagerFile.Read(GBATextureData, 0, 0x800);
+
+                for (var i = 0; i < 16; i++)
+                {
+                    GBAPalette[i] = reader.ReadUInt16().Reverse();
+                }
+
+                // Test
+                var outputLocation = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                    "AFe_GBA_Textures");
+                Directory.CreateDirectory(outputLocation);
+
+                for (var i = 0; i < 16; i++)
+                {
+                    var texture = new GBATexture(GBATextureData.Skip(i * 0x80).Take(0x80).ToArray(), GBAPalette,
+                        new Size(16, 16));
+
+                    texture.Texture.Save(Path.Combine(outputLocation, $"Texture_{i}.png"), ImageFormat.Png);
+                }
+
+                // Dump palette.
+                var gbaPalette = GBAPalette.Select(GCNToolKit.Formats.Colors.RGB5A3.ToARGB8).Select(c => Color.FromArgb((int)c)).ToArray();
+                var bmp = new Bitmap(32, 32 * 16);
+                for (var i = 0; i < 16; i++)
+                {
+                    for (var y = 0; y < 32; y++)
+                    {
+                        for (var x = 0; x < 32; x++)
+                        {
+                            bmp.SetPixel(x, y + i * 32, gbaPalette[i]);
+                        }
+                    }
+                }
+
+                bmp.Save(Path.Combine(outputLocation, "Palette.png"), ImageFormat.Png);
+                bmp.Dispose();
+
+                villagerFile.Seek(0x845, SeekOrigin.Begin);
+                for (var i = 0; i < 16; i++)
+                {
+                    Palette[i] = reader.ReadUInt16().Reverse();
+                }
+
+                TextureData = new byte[villagerFile.Length - 0x865];
+                villagerFile.Seek(0x865, SeekOrigin.Begin);
+                villagerFile.Read(TextureData, 0, TextureData.Length);
+            }
         }
     }
 }

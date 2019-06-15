@@ -382,7 +382,7 @@ namespace Custom_Villager_Creator
             var dataIndex = x + y * _selectedEntry.Width;
             _selectedEntry.Argb8Data[dataIndex] = (int)_selectedEntry.Rgba8Palette[_selectedColor];
             _selectedEntry.RawData = C4.EncodeC4(_selectedEntry.Argb8Data, _selectedEntry.Palette, _selectedEntry.Width,
-                _selectedEntry.Height);
+                _selectedEntry.Height, GCNToolKit.ColorFormat.RGB5A3);
             _changesMade = true;
 
             // Redraw bitmap
@@ -653,7 +653,7 @@ namespace Custom_Villager_Creator
         {
             foreach (var entry in _textureEntries)
             {
-                entry.Argb8Data = C4.DecodeC4(entry.RawData, entry.Palette, entry.Width, entry.Height);
+                entry.Argb8Data = C4.DecodeC4(entry.RawData, entry.Palette, entry.Width, entry.Height, GCNToolKit.ColorFormat.RGB5A3);
                 entry.Texture?.Dispose();
                 entry.Texture = Utility.CreateBitmap(entry.Argb8Data, entry.Width, entry.Height);
                 if (!(entry.TreeViewItem?.Tag is TextureEntry))
@@ -845,7 +845,7 @@ namespace Custom_Villager_Creator
                 {
                     _selectedEntry.Argb8Data = (int[]) ConvertToClosestColors(imageData, (int[])(object)_selectedEntry.Rgba8Palette);
                     _selectedEntry.RawData = C4.EncodeC4(_selectedEntry.Argb8Data, _selectedEntry.Palette,
-                        _selectedEntry.Width, _selectedEntry.Height);
+                        _selectedEntry.Width, _selectedEntry.Height, GCNToolKit.ColorFormat.RGB5A3);
                     _selectedEntry.Texture?.Dispose();
                     _selectedEntry.Texture = Utility.CreateBitmap(imageData, width, height);
                     SelectedImage.Source = BitmapSourceFromBitmap(_selectedEntry.Texture);
@@ -1103,7 +1103,7 @@ namespace Custom_Villager_Creator
                 foreach (var textureEntry in _textureEntries)
                 {
                     var entry = textureEntry;
-                    var c4Data = C4.EncodeC4(entry.Argb8Data, entry.Palette, entry.Width, entry.Height);
+                    var c4Data = C4.EncodeC4(entry.Argb8Data, entry.Palette, entry.Width, entry.Height, GCNToolKit.ColorFormat.RGB5A3);
                     c4Data.CopyTo(_data, 0x865 + entry.TextureOffset);
                 }
 
@@ -1168,6 +1168,13 @@ namespace Custom_Villager_Creator
         {
             if (ImageGridCanvas?.Background == null || GridEnabledCheckBox.IsChecked == null) return;
             ImageGridCanvas.Background.Opacity = GridEnabledCheckBox.IsChecked.Value ? 1 : 0;
+        }
+
+        private void PersonalityComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (_villager == null || PersonalityComboBox.SelectedIndex < 0 || PersonalityComboBox.SelectedIndex > 5) return;
+
+            _villager.Header.Personality = (PersonalityType)PersonalityComboBox.SelectedIndex;
         }
     }
 }

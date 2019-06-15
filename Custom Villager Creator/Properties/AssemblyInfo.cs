@@ -8,11 +8,11 @@ using System.Windows;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Custom Villager Creator")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("DLC Villager Editor/Creator for Animal Forest e+")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Custom Villager Creator")]
-[assembly: AssemblyCopyright("Copyright ©  2018")]
+[assembly: AssemblyCopyright("Copyright Cuyler © 2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

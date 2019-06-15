@@ -26,7 +26,7 @@ namespace Custom_Villager_Creator
             Palette = paletteData;
             Rgba8Palette = rgba8Palette;
             RawData = textureData;
-            Argb8Data = C4.DecodeC4(textureData, Palette, width, height);
+            Argb8Data = C4.DecodeC4(textureData, Palette, width, height, GCNToolKit.ColorFormat.RGB5A3);
             Texture = Utility.CreateBitmap(Argb8Data, width, height);
             EntryIndex = index;
         }

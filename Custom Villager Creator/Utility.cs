@@ -164,15 +164,14 @@ namespace Custom_Villager_Creator
             {
                 if (streamHandle.Length >= buffer.Length)
                 {
-                    streamHandle.Read(buffer, readOffset, buffer.Length);
-                    var handle = GCHandle.Alloc(buffer, GCHandleType.Pinned);
-                    structure = (T)Marshal.PtrToStructure(handle.AddrOfPinnedObject(), typeof(T));
-                    handle.Free();
+                    streamHandle.Read(buffer, 0, buffer.Length);
+                    structure = buffer.ToStruct<T>();
                 }
             }
-            catch
+            catch (Exception e)
             {
-                // ignored
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.StackTrace);
             }
 
             return structure;
@@ -185,12 +184,9 @@ namespace Custom_Villager_Creator
         {
             try
             {
-                var buffer = new byte[Utility.SizeOf<T>()];
-                var handle = GCHandle.Alloc(buffer, GCHandleType.Pinned);
-                Marshal.StructureToPtr(structure, handle.AddrOfPinnedObject(), false);
-                handle.Free();
-
+                var buffer = structure.ToBytes() as byte[] ?? new byte[0];
                 streamHandle?.Write(buffer, writeOffset, buffer.Length);
+
                 return buffer;
             }
             catch
