@@ -45,15 +45,25 @@ namespace Custom_Villager_Creator
         private bool _rightMouseButtonDown;
         private string _rgbBoxLastText = "";
         private string _rgbaBoxLastText = "";
+        private uint[] _rgba8Palette;
         private int _lastX = -1;
         private int _lastY = -1;
         private readonly Canvas[] _paletteObjects;
         private readonly BitmapSource[] _houseImages;
         private DLCVillager _villager;
         private bool _changesMade;
+        private Stack<HistoryItem> undoStack;
+        private Stack<HistoryItem> redoStack;
 
         public MainWindow()
         {
+            undoStack = new Stack<HistoryItem>();
+            redoStack = new Stack<HistoryItem>();
+
+            // Initialize hotkeys
+            CommandBindings.Add(Hotkeys.Create(new KeyGesture(Key.Z, ModifierKeys.Control), Undo_Click));
+            CommandBindings.Add(Hotkeys.Create(new KeyGesture(Key.Y, ModifierKeys.Control), Redo_Click));
+
             InitializeComponent();
 
             // Supress silly WPF warnings
@@ -279,6 +289,93 @@ namespace Custom_Villager_Creator
         private static Color FromArgb(int argb) => Color.FromArgb((byte)(argb >> 24), (byte)(argb >> 16), (byte)(argb >> 8), (byte)argb);
         private static Color FromArgb(uint argb) => FromArgb((int)argb);
 
+        private void PushUndo(ActionType type, int index, object value)
+        {
+            HistoryItem newItem = null;
+
+            ClearRedoStack(); // Clear the redo stack as a new change was made.
+
+            switch (type)
+            {
+                case ActionType.Palette:
+                    newItem = new HistoryItem(ActionType.Palette, index, _villager.Palette[index]);
+                    break;
+                case ActionType.Paint:
+                case ActionType.Import:
+                    newItem = new HistoryItem(ActionType.Import, index, _textureEntries[index].RawData);
+                    break;
+            }
+
+            if (newItem != null)
+                undoStack.Push(newItem);
+
+            UndoButton.IsEnabled = undoStack.Count > 0;
+            RedoButton.IsEnabled = redoStack.Count > 0;
+        }
+
+        private void UndoRedo(Stack<HistoryItem> sourceStack, Stack<HistoryItem> destinationStack)
+        {
+            if (sourceStack.Count < 1) return;
+
+            var item = sourceStack.Pop();
+            HistoryItem newItem = null;
+
+            switch (item.Type)
+            {
+                case ActionType.Palette:
+                    {
+                        var originalColor = (ushort)item.Value; // RGB5A3
+                        var idx = item.Index & 0xF;
+
+                        var currentColor = _villager.Palette[idx];
+                        newItem = new HistoryItem(ActionType.Palette, idx, currentColor);
+
+                        ChangePaletteColor(idx, originalColor);
+                        break;
+                    }
+                case ActionType.Paint:
+                case ActionType.Import:
+                    {
+                        var originalData = (byte[])item.Value;
+                        var idx = item.Index;
+
+                        var currentData = _textureEntries[idx].RawData;
+                        newItem = new HistoryItem(ActionType.Import, idx, currentData);
+
+                        _textureEntries[idx].RawData = originalData;
+                        _textureEntries[idx].Argb8Data = C4.DecodeC4(originalData, _villager.Palette, _textureEntries[idx].Width, _textureEntries[idx].Height, GCNToolKit.ColorFormat.RGB5A3);
+                        _textureEntries[idx].Texture?.Dispose();
+                        _textureEntries[idx].Texture = Utility.CreateBitmap(_textureEntries[idx].Argb8Data, _textureEntries[idx].Width, _textureEntries[idx].Height);
+
+                        RefreshEntries(); // TODO: Write a method to refresh a single entry to save performance.
+
+                        if (_textureEntries[idx] == _selectedEntry)
+                            SelectedImage.Source = BitmapSourceFromBitmap(_textureEntries[idx].Texture);
+                        break;
+                    }
+            }
+
+            if (newItem != null)
+                destinationStack.Push(newItem);
+
+            UndoButton.IsEnabled = undoStack.Count > 0;
+            RedoButton.IsEnabled = redoStack.Count > 0;
+        }
+
+        private void Undo() => UndoRedo(undoStack, redoStack);
+        private void Redo() => UndoRedo(redoStack, undoStack);
+
+        private void ClearRedoStack() => redoStack.Clear();
+        private void ClearUndoStack() => undoStack.Clear();
+        private void ClearUndoRedoStacks()
+        {
+            ClearUndoStack();
+            ClearRedoStack();
+
+            UndoButton.IsEnabled = undoStack.Count > 0;
+            RedoButton.IsEnabled = redoStack.Count > 0;
+        }
+
         private void SetHouseImage(int houseType, int housePalette)
         {
             HousePreviewImage.Source = _houseImages[houseType * 5 + housePalette];
@@ -377,19 +474,28 @@ namespace Custom_Villager_Creator
             y = Math.Max(0, Math.Min((int)position.Y / 16, _selectedEntry.Height - 1));
         }
 
-        private void Paint(int x, int y)
+        private void PaintCanvas(int textureEntryIdx, int x, int y, int paletteIdx)
         {
-            var dataIndex = x + y * _selectedEntry.Width;
-            _selectedEntry.Argb8Data[dataIndex] = (int)_selectedEntry.Rgba8Palette[_selectedColor];
-            _selectedEntry.RawData = C4.EncodeC4(_selectedEntry.Argb8Data, _selectedEntry.Palette, _selectedEntry.Width,
-                _selectedEntry.Height, GCNToolKit.ColorFormat.RGB5A3);
+            if (paletteIdx < 0 || paletteIdx > 15)
+                paletteIdx = 0;
+
+            var textureEntry = _textureEntries[textureEntryIdx];
+            var dataIndex = x + y * textureEntry.Width;
+            textureEntry.Argb8Data[dataIndex] = (int)textureEntry.Rgba8Palette[paletteIdx];
+            textureEntry.RawData = C4.EncodeC4(textureEntry.Argb8Data, textureEntry.Palette, textureEntry.Width,
+                textureEntry.Height, GCNToolKit.ColorFormat.RGB5A3);
             _changesMade = true;
 
             // Redraw bitmap
-            _selectedEntry.Texture?.Dispose();
-            _selectedEntry.Texture = Utility.CreateBitmap(_selectedEntry.Argb8Data, _selectedEntry.Width, _selectedEntry.Height);
-            SelectedImage.Source = BitmapSourceFromBitmap(_selectedEntry.Texture);
+            textureEntry.Texture?.Dispose();
+            textureEntry.Texture = Utility.CreateBitmap(textureEntry.Argb8Data, textureEntry.Width, textureEntry.Height);
+
+            // If the currently selected texture is the texture modified, refresh the editor image.
+            if (textureEntry == _selectedEntry)
+                SelectedImage.Source = BitmapSourceFromBitmap(textureEntry.Texture);
         }
+
+        private void Paint(int x, int y) => PaintCanvas(Array.IndexOf(_textureEntries, _selectedEntry), x, y, _selectedColor);
 
         private void CanvasGrid_MouseMove(object sender, MouseEventArgs e)
         {
@@ -423,6 +529,8 @@ namespace Custom_Villager_Creator
             if (e.LeftButton == MouseButtonState.Pressed)
             {
                 _leftMouseButtonDown = true;
+                var idx = Array.IndexOf(_textureEntries, _selectedEntry);
+                PushUndo(ActionType.Paint, idx, _selectedEntry.RawData);
                 Paint(x, y);
             }
             else if (e.RightButton == MouseButtonState.Pressed)
@@ -664,20 +772,24 @@ namespace Custom_Villager_Creator
             }
         }
 
+        private void ChangePaletteColor(int paletteIdx, ushort rgb5a3)
+        {
+            if (paletteIdx < 0 || paletteIdx > 15) return;
+
+            _villager.Palette[paletteIdx] = rgb5a3;
+            _rgba8Palette[paletteIdx] = RGB5A3.ToARGB8(rgb5a3);
+            RefreshEntries();
+            Set_Palette_Colors(_villager.Palette);
+            SelectedImage.Source = BitmapSourceFromBitmap(_selectedEntry.Texture);
+        }
+
         private void SetColorButton_Click(object sender, RoutedEventArgs e)
         {
             if (_selectedEntry == null ||
                 !ushort.TryParse(RgbBox.Text, NumberStyles.AllowHexSpecifier, null, out var color)) return;
-            _selectedEntry.Palette[_selectedColor] = color;
-            _selectedEntry.Rgba8Palette[_selectedColor] = RGB5A3.ToARGB8(color);
             _changesMade = true;
-
-            // Update all images
-            RefreshEntries();
-
-            // Reload Current Bitmap & Palette
-            Set_Palette_Colors(_selectedEntry.Palette);
-            SelectedImage.Source = BitmapSourceFromBitmap(_selectedEntry.Texture);
+            PushUndo(ActionType.Palette, _selectedColor, _villager.Palette[_selectedColor]);
+            ChangePaletteColor(_selectedColor, color);
         }
 
         private unsafe void SetVillagerInfo(DLCVillager villager)
@@ -714,18 +826,19 @@ namespace Custom_Villager_Creator
 
         private void SetTextureEditorInfo()
         {
+            ClearUndoRedoStacks();
             var selectedDatabase = VillagerDatabase.GetImageData(_villager.Header.Model);
             if (selectedDatabase == null) return;
             _textureEntries = new TextureEntry[selectedDatabase.Count];
 
             var lastOffset = 0;
-            var rgba8Palette = Utility.ToArgb8Palette(_villager.Palette);
+            _rgba8Palette = Utility.ToArgb8Palette(_villager.Palette);
             for (var i = 0; i < _textureEntries.Length; i++)
             {
                 var imageSize = selectedDatabase.Values.ElementAt(i);
                 var dataSize = VillagerDatabase.DataSizeFromSize(imageSize);
                 _textureEntries[i] = new TextureEntry(lastOffset, imageSize.Width, imageSize.Height,
-                    _villager.TextureData.Skip(lastOffset).Take(dataSize).ToArray(), ref _villager.Palette, ref rgba8Palette, i)
+                    _villager.TextureData.Skip(lastOffset).Take(dataSize).ToArray(), ref _villager.Palette, ref _rgba8Palette, i)
                 {
                     TextureName = selectedDatabase.Keys.ElementAt(i)
                 };
@@ -843,6 +956,8 @@ namespace Custom_Villager_Creator
             {
                 if (imageData.Length == _selectedEntry.Argb8Data.Length)
                 {
+                    PushUndo(ActionType.Import, Array.IndexOf(_textureEntries, _selectedEntry), _selectedEntry.RawData);
+
                     _selectedEntry.Argb8Data = (int[]) ConvertToClosestColors(imageData, (int[])(object)_selectedEntry.Rgba8Palette);
                     _selectedEntry.RawData = C4.EncodeC4(_selectedEntry.Argb8Data, _selectedEntry.Palette,
                         _selectedEntry.Width, _selectedEntry.Height, GCNToolKit.ColorFormat.RGB5A3);
@@ -1176,5 +1291,9 @@ namespace Custom_Villager_Creator
 
             _villager.Header.Personality = (PersonalityType)PersonalityComboBox.SelectedIndex;
         }
+
+        private void Undo_Click(object sender, RoutedEventArgs e) => UndoRedo(undoStack, redoStack);
+
+        private void Redo_Click(object sender, RoutedEventArgs e) => UndoRedo(redoStack, undoStack);
     }
 }

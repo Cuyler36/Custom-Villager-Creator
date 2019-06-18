@@ -14,6 +14,10 @@
                     <MenuItem Header="_Save" Click="Save_Click"/>
                     <MenuItem Header="Save _As" Click="SaveAs_Click"/>
                 </MenuItem>
+                <MenuItem Header="_Edit">
+                    <MenuItem x:Name="UndoButton" Header="_Undo" IsEnabled="False" Click="Undo_Click"/>
+                    <MenuItem x:Name="RedoButton" Header="_Redo" IsEnabled="False" Click="Redo_Click"/>
+                </MenuItem>
                 <MenuItem Header="_Texture">
                     <MenuItem x:Name="Import" Header="_Import Over Selected" IsEnabled="False" Click="ImportOverSelected_Click"/>
                     <MenuItem x:Name="ImportPalette" Header="Import Palette _File" IsEnabled="False" Click="ImportPalette_OnClick"/>

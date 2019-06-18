@@ -91,6 +91,8 @@
     <Compile Include="DataExtensions.cs" />
     <Compile Include="DLCVillager.cs" />
     <Compile Include="GBATexture.cs" />
+    <Compile Include="History.cs" />
+    <Compile Include="Hotkeys.cs" />
     <Compile Include="Static.cs" />
     <Compile Include="StructAttributes.cs" />
     <Compile Include="TextureEntry.cs" />
