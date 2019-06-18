@@ -61,6 +61,12 @@ namespace Custom_Villager_Creator
             redoStack = new Stack<HistoryItem>();
 
             // Initialize hotkeys
+            CommandBindings.Add(Hotkeys.Create(new KeyGesture(Key.N, ModifierKeys.Control), New_Click));
+            CommandBindings.Add(Hotkeys.Create(new KeyGesture(Key.O, ModifierKeys.Control), Open_Click));
+            CommandBindings.Add(Hotkeys.Create(new KeyGesture(Key.S, ModifierKeys.Control), Save_Click));
+            CommandBindings.Add(Hotkeys.Create(new KeyGesture(Key.S, ModifierKeys.Control | ModifierKeys.Shift), SaveAs_Click));
+            CommandBindings.Add(Hotkeys.Create(new KeyGesture(Key.I, ModifierKeys.Control | ModifierKeys.Shift), ImportOverSelected_Click));
+
             CommandBindings.Add(Hotkeys.Create(new KeyGesture(Key.Z, ModifierKeys.Control), Undo_Click));
             CommandBindings.Add(Hotkeys.Create(new KeyGesture(Key.Y, ModifierKeys.Control), Redo_Click));
 
@@ -949,6 +955,7 @@ namespace Custom_Villager_Creator
             if (_fileLocation == null || _selectedEntry == null) return;
             _fileSelect.FileName = "";
             _fileSelect.Filter = "PNG File|*.png";
+            _fileSelect.Title = "Select a File to Import...";
             var result = _fileSelect.ShowDialog();
             if (!result.HasValue || !result.Value || !File.Exists(_fileSelect.FileName)) return;
             var imageData = Utility.GetBitmapDataFromPng(_fileSelect.FileName, out var width, out var height);
@@ -1150,6 +1157,7 @@ namespace Custom_Villager_Creator
 
             _fileSelect.FileName = "";
             _fileSelect.Filter = "All Supported Files|*.yaz0;*.bin|Yaz0 Compressed File|*.yaz0|Binary File|*.bin|All Files|*.*";
+            _fileSelect.Title = "Select a File to Open...";
             var result = _fileSelect.ShowDialog();
 
             if (!result.HasValue || !result.Value) return;
