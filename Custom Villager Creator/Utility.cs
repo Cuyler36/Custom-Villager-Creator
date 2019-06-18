@@ -126,11 +126,23 @@ namespace Custom_Villager_Creator
                 var imageData = bitmapBuffer.Skip(BitConverter.ToInt32(bitmapBuffer.Skip(0xA).Take(4).ToArray(), 0)).ToArray();
                 var pixelData = new int[imageData.Length / dataSize];
 
-                for (var i = 0; i < pixelData.Length; i++)
+                if (dataSize == 4) // 4bpp, includes opacity
                 {
-                    var index = i * dataSize;
-                    pixelData[i] = (imageData[index + 3] << 24) | (imageData[index + 2] << 16)
-                                                                | (imageData[index + 1] << 8) | imageData[index];
+                    for (var i = 0; i < pixelData.Length; i++)
+                    {
+                        var index = i * dataSize;
+                        pixelData[i] = (imageData[index + 3] << 24) | (imageData[index + 2] << 16) |
+                                       (imageData[index + 1] << 8) | imageData[index];
+                    }
+                }
+                else // 3bpp, no opacity
+                {
+                    for (var i = 0; i < pixelData.Length; i++)
+                    {
+                        var index = i * dataSize;
+                        pixelData[i] = (0xFF << 24) | (imageData[index + 2] << 16) |
+                                       (imageData[index + 1] << 8) | imageData[index];
+                    }
                 }
 
                 // Flip Vertically
