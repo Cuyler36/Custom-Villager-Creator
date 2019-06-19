@@ -52,8 +52,8 @@ namespace Custom_Villager_Creator
         private readonly BitmapSource[] _houseImages;
         private DLCVillager _villager;
         private bool _changesMade;
-        private Stack<HistoryItem> undoStack;
-        private Stack<HistoryItem> redoStack;
+        private readonly Stack<HistoryItem> undoStack;
+        private readonly Stack<HistoryItem> redoStack;
 
         public MainWindow()
         {
@@ -295,6 +295,11 @@ namespace Custom_Villager_Creator
         private static Color FromArgb(int argb) => Color.FromArgb((byte)(argb >> 24), (byte)(argb >> 16), (byte)(argb >> 8), (byte)argb);
         private static Color FromArgb(uint argb) => FromArgb((int)argb);
 
+        private void SetUndoText(string text) => UndoButton.Header = "_Undo " + text;
+        private void SetRedoText(string text) => RedoButton.Header = "_Redo " + text;
+        private void ResetUndoText() => UndoButton.Header = "_Undo";
+        private void ResetRedoText() => RedoButton.Header = "_Redo";
+
         private void PushUndo(ActionType type, int index, object value)
         {
             HistoryItem newItem = null;
@@ -308,15 +313,55 @@ namespace Custom_Villager_Creator
                     break;
                 case ActionType.Paint:
                 case ActionType.Import:
-                    newItem = new HistoryItem(ActionType.Import, index, _textureEntries[index].RawData);
+                    newItem = new HistoryItem(type, index, _textureEntries[index].RawData);
                     break;
             }
 
             if (newItem != null)
                 undoStack.Push(newItem);
 
+            SetUndoRedoText();
             UndoButton.IsEnabled = undoStack.Count > 0;
             RedoButton.IsEnabled = redoStack.Count > 0;
+        }
+
+        private void SetUndoRedoText()
+        {
+            if (undoStack.Count > 0)
+            {
+                switch (undoStack.Peek().Type)
+                {
+                    case ActionType.Palette:
+                        SetUndoText("Palette Change");
+                        break;
+                    case ActionType.Paint:
+                        SetUndoText("Paint");
+                        break;
+                    case ActionType.Import:
+                        SetUndoText("Import");
+                        break;
+                }
+            }
+            else
+                ResetUndoText();
+
+            if (redoStack.Count > 0)
+            {
+                switch (redoStack.Peek().Type)
+                {
+                    case ActionType.Palette:
+                        SetRedoText("Palette Change");
+                        break;
+                    case ActionType.Paint:
+                        SetRedoText("Paint");
+                        break;
+                    case ActionType.Import:
+                        SetRedoText("Import");
+                        break;
+                }
+            }
+            else
+                ResetRedoText();
         }
 
         private void UndoRedo(Stack<HistoryItem> sourceStack, Stack<HistoryItem> destinationStack)
@@ -346,7 +391,7 @@ namespace Custom_Villager_Creator
                         var idx = item.Index;
 
                         var currentData = _textureEntries[idx].RawData;
-                        newItem = new HistoryItem(ActionType.Import, idx, currentData);
+                        newItem = new HistoryItem(item.Type, idx, currentData);
 
                         _textureEntries[idx].RawData = originalData;
                         _textureEntries[idx].Argb8Data = C4.DecodeC4(originalData, _villager.Palette, _textureEntries[idx].Width, _textureEntries[idx].Height, GCNToolKit.ColorFormat.RGB5A3);
@@ -364,6 +409,7 @@ namespace Custom_Villager_Creator
             if (newItem != null)
                 destinationStack.Push(newItem);
 
+            SetUndoRedoText();
             UndoButton.IsEnabled = undoStack.Count > 0;
             RedoButton.IsEnabled = redoStack.Count > 0;
         }
@@ -371,15 +417,24 @@ namespace Custom_Villager_Creator
         private void Undo() => UndoRedo(undoStack, redoStack);
         private void Redo() => UndoRedo(redoStack, undoStack);
 
-        private void ClearRedoStack() => redoStack.Clear();
-        private void ClearUndoStack() => undoStack.Clear();
+        private void ClearRedoStack()
+        {
+            redoStack.Clear();
+            RedoButton.IsEnabled = false;
+            ResetRedoText();
+        }
+
+        private void ClearUndoStack()
+        {
+            undoStack.Clear();
+            UndoButton.IsEnabled = false;
+            ResetUndoText();
+        }
+
         private void ClearUndoRedoStacks()
         {
             ClearUndoStack();
             ClearRedoStack();
-
-            UndoButton.IsEnabled = undoStack.Count > 0;
-            RedoButton.IsEnabled = redoStack.Count > 0;
         }
 
         private void SetHouseImage(int houseType, int housePalette)
